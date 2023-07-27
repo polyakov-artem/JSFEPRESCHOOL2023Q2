@@ -22,7 +22,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png" />
-  <link rel="manifest" href="./assets/favicons/site.webmanifest" />
+  <!--  <link rel="manifest" href="./assets/favicons/site.webmanifest"/>-->
   <link rel="mask-icon" href="./assets/favicons/safari-pinned-tab.svg" color="#2b5797" />
   <link rel="shortcut icon" href="./assets/favicons/favicon.ico" />
   <meta name="msapplication-TileColor" content="#2b5797" />
@@ -64,12 +64,10 @@
       </nav>
 
       <div class="user-menu">
-        <a class="user-menu__avatar-wrap user-menu__profile-link">
-          <img class="user-menu__avatar" src="./assets/svg/icon-profile.svg" alt="avatar" width="28" height="28">
-        </a>
-
+        <div class="user-menu__avatar-wrap">
+          <img class="user-menu__avatar" src="./assets/svg/icon-profile.svg" alt="User avatar" width="28" height="28">
+        </div>
       </div>
-
     </header>
 
     <main>
@@ -77,25 +75,22 @@
         <h2 class="welcome__title">Welcome<br>to the Brooklyn<br>Library</h2>
       </section>
 
-      <section class="section about page__about" id="about">
-        <h2 class="section-title about__title">About</h2>
+      <section class="about page__about" id="about">
+        <h2 class="section-title">About</h2>
         <p class="section-description">The Brooklyn Library is a free workspace, a large number of books and a cozy
           coffee shop inside </p>
-
         <div class="gallery about__gallery">
-
-          <div class="gallery__inner">
-            <div class="gallery__img-wrap">
-              <img class="adapative-img" src="./assets/img/library/5.jfif" alt="Library picture">
+          <div class="gallery__grid">
+            <div class="gallery__item">
+              <img class="adaptive-img" src="./assets/img/library/5.jpg" alt="Library picture">
             </div>
-            <div class="gallery__img-wrap">
-              <img class="adapative-img" src="./assets/img/library/4.jfif" alt="Library picture">
+            <div class="gallery__item">
+              <img class="adaptive-img" src="./assets/img/library/4.jpg" alt="Library picture">
             </div>
-            <div class="gallery__img-wrap">
-              <img class="adapative-img" src="./assets/img/library/3.jfif" alt="Library picture">
+            <div class="gallery__item">
+              <img class="adaptive-img" src="./assets/img/library/3.jpg" alt="Library picture">
             </div>
           </div>
-
         </div>
 
         <div class="gallery-controls">
@@ -105,11 +100,8 @@
         </div>
       </section>
 
-
-      </section>
-
-      <section class="section favorites page__favorites" id="favorites">
-        <h2 class="section-title favorites__title">Favorites</h2>
+      <section class="favorites page__favorites" id="favorites">
+        <h2 class="section-title">Favorites</h2>
 
         <div class="item-picker">
           <p class="item-picker__title">Pick favorites of season</p>
@@ -150,19 +142,22 @@
               <article class="book-block">
                 <header class="book-block__header">
                   <p class="book-block__tag">Staff Picks</p>
-                  <h3 class="book-block__title">The Book Eaters</h3>
+                  <h4 class="book-block__title">The Book Eaters</h4>
                   <p class="book-block__author">By Sunyi Dean</p>
                 </header>
                 <div class="book-block__wrap">
                   <div class="book-block__content">
-                    <p class="book-block__text">An unusual sci-fi story about a book eater woman who tries desperately
-                      to save her dangerous mind-eater son from tradition and certain death. Complete with dysfunctional
-                      family values, light Sapphic romance, and a strong, complex protagonist. Not for the faint of
+                    <p class="book-block__text">An unusual sci-fi story about a book eater woman who
+                      tries desperately
+                      to save her dangerous mind-eater son from tradition and certain death. Complete
+                      with dysfunctional
+                      family values, light Sapphic romance, and a strong, complex protagonist. Not for
+                      the faint of
                       heart.</p>
-                    <a class="btn btn-transparent book-block__buy-btn">Buy</a>
+                    <a class="btn btn-transparent book-block__btn">Buy</a>
                   </div>
                   <div class="book-block__img-wrap">
-                    <img class="book-block__img" src="./assets/img/books/1.jfif" alt="Book cover">
+                    <img class="book-block__img" src="./assets/img/books/1.jpg" alt="Book cover">
                   </div>
                 </div>
               </article>
@@ -172,18 +167,20 @@
               <article class="book-block">
                 <header class="book-block__header">
                   <p class="book-block__tag">Staff Picks</p>
-                  <h3 class="book-block__title">Cackle</h3>
+                  <h4 class="book-block__title">Cackle</h4>
                   <p class="book-block__author">By Rachel Harrison</p>
                 </header>
                 <div class="book-block__wrap">
                   <div class="book-block__content">
-                    <p class="book-block__text">Are your Halloween movies of choice The Witches of Eastwick and
-                      Practical Magic? Look no further than here - where a woman recovering from a breakup moves to a
+                    <p class="book-block__text">Are your Halloween movies of choice The Witches of
+                      Eastwick and
+                      Practical Magic? Look no further than here - where a woman recovering from a
+                      breakup moves to a
                       quaint town in upstate New York and befriends a beautiful witch.</p>
-                    <a class="btn btn-transparent book-block__buy-btn">Buy</a>
+                    <a class="btn btn-transparent book-block__btn">Buy</a>
                   </div>
                   <div class="book-block__img-wrap">
-                    <img class="book-block__img" src="./assets/img/books/4.jfif" alt="Book cover">
+                    <img class="book-block__img" src="./assets/img/books/4.jpg" alt="Book cover">
                   </div>
                 </div>
               </article>
@@ -193,19 +190,22 @@
               <article class="book-block">
                 <header class="book-block__header">
                   <p class="book-block__tag">Staff Picks</p>
-                  <h3 class="book-block__title">Dante: Poet of the Secular World</h3>
+                  <h4 class="book-block__title">Dante: Poet of the Secular World</h4>
                   <p class="book-block__author">By Erich Auerbach</p>
                 </header>
                 <div class="book-block__wrap">
                   <div class="book-block__content">
-                    <p class="book-block__text">Auerbach's engaging book places the 'Comedy' within the tradition of
-                      epic, tragedy, and philosophy in general, arguing for Dante's uniqueness as one who raised the
-                      individual and his drama of soul into something of divine significance—an inspired introduction to
+                    <p class="book-block__text">Auerbach's engaging book places the 'Comedy' within the
+                      tradition of
+                      epic, tragedy, and philosophy in general, arguing for Dante's uniqueness as one
+                      who raised the
+                      individual and his drama of soul into something of divine significance—an
+                      inspired introduction to
                       Dante's main themes.</p>
-                    <a class="btn btn-transparent book-block__buy-btn">Buy</a>
+                    <a class="btn btn-transparent book-block__btn">Buy</a>
                   </div>
                   <div class="book-block__img-wrap">
-                    <img class="book-block__img" src="./assets/img/books/3.jfif" alt="Book cover">
+                    <img class="book-block__img" src="./assets/img/books/3.jpg" alt="Book cover">
                   </div>
                 </div>
               </article>
@@ -215,18 +215,20 @@
               <article class="book-block">
                 <header class="book-block__header">
                   <p class="book-block__tag">Staff Picks</p>
-                  <h3 class="book-block__title">The Last Queen</h3>
+                  <h4 class="book-block__title">The Last Queen</h4>
                   <p class="book-block__author">By Clive Irving</p>
                 </header>
                 <div class="book-block__wrap">
                   <div class="book-block__content">
-                    <p class="book-block__text">A timely and revelatory new biography of Queen Elizabeth (and her
-                      family) exploring how the Windsors have evolved and thrived as the modern world has changed around
+                    <p class="book-block__text">A timely and revelatory new biography of Queen Elizabeth
+                      (and her
+                      family) exploring how the Windsors have evolved and thrived as the modern world
+                      has changed around
                       them.</p>
-                    <a class="btn btn-transparent book-block__buy-btn">Buy</a>
+                    <a class="btn btn-transparent book-block__btn">Buy</a>
                   </div>
                   <div class="book-block__img-wrap">
-                    <img class="book-block__img" src="./assets/img/books/2.jfif" alt="Book cover">
+                    <img class="book-block__img" src="./assets/img/books/2.jpg" alt="Book cover">
                   </div>
                 </div>
               </article>
@@ -235,15 +237,17 @@
         </div>
       </section>
 
-      <section class="section coffee-shop page__coffee-shop" id="coffee-shop">
-        <h2 class="section-title coffee-shop__title" >Coffee shop</h2>
-        <p class="section-description coffee-shop__description">In our library, we have of cozy coffee shop, welcoming in customers with frothy cappuccinos and friendly conversation. 
-          you can get a favorite book and read in coffee shop. Our barista to cook you best coffee, and also you can try desserts from bakery.</p>
-        
+      <section class="coffee-shop page__coffee-shop" id="coffee-shop">
+        <h2 class="section-title">Coffee shop</h2>
+        <p class="section-description coffee-shop__description">In our library, we have of cozy coffee shop,
+          welcoming in customers with frothy cappuccinos and friendly conversation.
+          You can get a favorite book and read in coffee shop. our barista to cook you best coffee, and also you
+          can try desserts from bakery.</p>
+
         <div class="coffee-shop__grid">
           <div class="coffee-shop__item">
             <article class="price-block">
-              <h3 class="price-block__title">Coffee & Tea</h3>
+              <h4 class="price-block__title">Coffee & Tea</h4>
               <ul class="price-block__table">
                 <li class="price-block__row">
                   <span class="price-block__item-name">Cold Brew Coffee</span>
@@ -280,7 +284,7 @@
           </div>
           <div class="coffee-shop__item">
             <article class="price-block">
-              <h3 class="price-block__title">Desserts & Cakes</h3>
+              <h4 class="price-block__title">Desserts & Cakes</h4>
               <ul class="price-block__table">
                 <li class="price-block__row">
                   <span class="price-block__item-name">Forest Gateau</span>
@@ -320,100 +324,127 @@
       </section>
 
       <section class="contacts page__contacts" id="contacts">
-        <h2 class="section-title">Our Contacts</h2>
+        <h2 class="contacts__title section-title">Our Contacts</h2>
 
-        <div class="contacts-block">
-          <p class="contacts-block__title">For all Library inquiries:</p>
-          <address class="contacts-block__info">
-
-            <p class="contacts-block__item">
-              <span class="contacts-block__item-text">Please call </span>
-              <a class="contacts-block__link" href="tel:6177302370">(617) 730-2370</a>
-            </p>
-
-            <p class="contacts-block__item">
-              <span class="contacts-block__item-text">For TTY service, please call </span>
-              <a class="contacts-block__link" href="tel:6177302370">(617) 730-2370</a>
-            </p>
-
-            <p class="contacts-block__item">
-              <span class="contacts-block__item-text">Putterham Library: </span>
-              <a class="contacts-block__link" href="tel: 6177302385"> (617) 730-2385</a>
-            </p>
-
-          </address>
-
-          <p class="contacts-block__title">Senior Staff</p>
-          <p class="contacts-block__staff">
-            <span class="contacts-block__post"> Library Director: </span>
-            <span class="contacts-block__worker">Amanda Hirst</span>
-          </p>
+        <div class="contacts__grid">
+          <div class="contacts__column">
+            <div class="contacts__section">
+              <h4 class="contacts__section-title">For all Library inquiries:</h4>
+              <ul class="contacts__list">
+                <li class="contacts__item">
+                  <span class="contacts__item-text">Please call </span>
+                  <a class="contacts__item-link" href="tel:6177302370">(617) 730-2370</a>
+                </li>
+                <li class="contacts__item">
+                  <span class="contacts__item-text">For TTY service, please call </span>
+                  <a class="contacts__item-link" href="tel:6177302370">(617) 730-2370</a>
+                </li>
+                <li class="contacts__item">
+                  <span class="contacts__item-text">Putterham Library: </span>
+                  <a class="contacts__item-link" href="tel: 6177302385"> (617) 730-2385</a>
+                </li>
+              </ul>
+            </div>
+            <div class="contacts__section">
+              <h4 class="contacts__section-title contacts__staff-title">Senior Staff:</h4>
+              <ul class="contacts__list">
+                <li class="contacts__item">
+                  <span class="contacts__item-text">Library Director:</span>
+                  <a class="contacts__item-link contacts__accented-text" href="mailto:/">Amanda Hirst</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="contacts__column">
+            <img class="contacts__map" src="./assets/img/contacts/map.png" alt="">
+          </div>
         </div>
-
-        <div class="contacts__map-wrap">
-          <img class="contacts__map" src="" alt="">
-        </div>
-
       </section>
 
-      <section class="section library-card page__library-card" id="library-card">
+      <section class="library-card page__library-card" id="library-card">
         <h2 class="section-title">Digital Library Cards</h2>
 
         <div class="library-card__grid">
           <div class="library-card__column">
-            <p class="library-card__appeal">Find your Library card</p>
-            <article class="card">
-              <h4 class="card__title">Brooklyn Public Library</h4>
-              <input class="card__name" type="text" placeholder="Reader's name ">
-              <input class="card__number" type="text" placeholder="Card number">
-              <a class="card__btn" href="">Check the card</a>
-            </article>
+            <div class="find-card">
+              <h4 class="find-card__title">Find your Library card</h4>
+              <div class="card">
+                <div class="card__wrap">
+                  <p class="card__title">Brooklyn Public Library</p>
+                  <input class="input card__input" type="text" placeholder="Reader's name ">
+                  <input class="input card__input" type="text" placeholder="Card number">
+                </div>
+                <a class="btn btn_large btn_transparent card__btn" href="">Check the card</a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="library-card__column">
-          <div class="get-card-block">
-            <p class="get-card-block__title"></p>
-            <p class="get-card-block__text"></p>
 
-            <div class="get-card-block__buttons">
-              <a href="" class="get-card-block__button"></a>
+          <div class="library-card__column">
+            <div class="get-card library-card__get-card">
+              <h4 class="get-card__title">Get a reader card</h4>
+              <p class="get-card__text">You will be able to see a reader card after logging into account or you can
+                register a new account</p>
+              <div class="get-card__buttons">
+                <a href="" class="btn btn_transparent btn_pad_a get-card__btn">Sign Up</a>
+                <a href="" class="btn btn_transparent btn_pad_b get-card__btn">Log in</a>
+              </div>
             </div>
           </div>
         </div>
       </section>
-
     </main>
+
     <footer class="footer">
       <div class="footer__wrap">
         <div class="footer__column">
-          <address class="footer__location">
-
-          </address>
-
-          <div class="social-links">
-            <a class="social-links__item">
-              <img src="" alt="">
-            </a>
-          </div>
+          <address class="footer__location">286 Cadman Plaza, New York, NY 11238, United States</address>
+          <ul class="social-links">
+            <li class="social-links__item">
+              <a class="social-links__link">
+                <img class="social-links__icon" width="24" height="24" src="./assets/svg/icon-twitter.svg" alt="">
+              </a>
+            </li>
+            <li class="social-links__item">
+              <a class="social-links__link">
+                <img class="social-links__icon" width="24" height="24" src="./assets/svg/icon-instagram.svg" alt="">
+              </a>
+            </li>
+            <li class="social-links__item">
+              <a class="social-links__link">
+                <img class="social-links__icon" width="24" height="24" src="./assets/svg/icon-facebook.svg" alt="">
+              </a>
+            </li>
+          </ul>
         </div>
 
         <div class="footer__column">
           <ul class="footer__intervals">
             <li class="footer__interval">
-              <p class="footer__day"></p>
-              <p class="footer__time"></p>
+              <p class="footer__day">Mon - Fri</p>
+              <p class="footer__time">08:00 am - 07:00 pm</p>
+            </li>
+            <li class="footer__interval">
+              <p class="footer__day">Sat - Sun</p>
+              <p class="footer__time">10:00 am - 06:00 pm</p>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="footer__bottom">
-        <time datetime="2023" class="footer__creation-date"></time>
-        <p class="footer__organization"></p>
-        <p class="footer__creator"></p>
+      <div class="footer__copyright">
+        <div class="footer__bottom-column">
+          <time datetime="2023" class="footer__creation-date">2023</time>
+        </div>
+        <div class="footer__bottom-column">
+          <a class="footer__link footer__organization" href="/">The Rolling Scopes School</a>
+        </div>
+        <div class="footer__bottom-column">
+          <a class="footer__link footer__creator" href="/">Username</a>
+        </div>
       </div>
     </footer>
   </div>
+
   <script src="./js/index.js"></script>
 </body>
 
