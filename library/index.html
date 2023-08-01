@@ -22,10 +22,11 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
-  <link rel="manifest" href="./assets/favicons/site.webmanifest">
+<!--  <link rel="manifest" href="./assets/favicons/site.webmanifest">-->
   <title>Library</title>
   <link href="./css/normalize.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
+  <link href="./dev/outline.css" rel="stylesheet">
 </head>
 
 <body>
@@ -35,33 +36,40 @@
         <h1 class="header__logo">Brooklyn Public Library</h1>
       </a>
 
-      <nav class="header__nav">
+      <nav class="header__nav" >
         <div class="header__menu-content">
           <ul class="header__menu">
             <li class="header__item">
               <a class="header__link" href="#about">About</a>
             </li>
             <li class="header__item">
-              <a class="header__link" href="#favorites">Favorites</a>
+              <a class="header__link" href="#afavorites">Favorites</a>
             </li>
             <li class="header__item">
-              <a class="header__link" href="#coffee-shop">Coffee shop</a>
+              <a class="header__link" href="#acoffee-shop">Coffee shop</a>
             </li>
             <li class="header__item">
-              <a class="header__link" href="#contacts">Contacts</a>
+              <a class="header__link" href="#acontacts">Contacts</a>
             </li>
             <li class="header__item">
-              <a class="header__link" href="#library-card">Library Card</a>
+              <a class="header__link" href="#alibrary-card">Library Card</a>
             </li>
           </ul>
         </div>
       </nav>
 
-      <div class="user-menu">
+      <div class="user-menu header__user-menu">
         <div class="user-menu__avatar-wrap">
           <img class="user-menu__avatar" src="./assets/svg/icon-profile.svg" alt="User avatar" width="28" height="28">
         </div>
       </div>
+
+      <button class="hamburger hamburger_type_slider header__toggler">
+        <span class="hamburger__box">
+          <span class="hamburger__inner"></span>
+        </span>
+      </button>
+
     </header>
 
     <main>
