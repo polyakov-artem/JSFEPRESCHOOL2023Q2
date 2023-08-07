@@ -1258,7 +1258,7 @@ button:disabled.btn {
     }
 
     .footer__copyright {
-        grid-template-columns: auto 1fr minmax(113px, auto);
+        grid-template-columns: minmax(min-content, 120px) 1fr auto;
     }
 }
 
