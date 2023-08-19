@@ -13,8 +13,8 @@
 
     --page-width: 1440px;
 
-    --mobile-menu-y-pos: -1000px;
     --mobile-menu-width: 332px;
+    --mobile-menu-x-pos: 332px;
 }
 
 /*vars end*/
@@ -115,6 +115,7 @@ body {
     margin: 0 auto;
     max-width: var(--page-width);
     background-color: var(--white);
+    overflow-x: hidden;
 }
 
 .page__welcome {
@@ -1148,31 +1149,14 @@ button:disabled.btn {
         width: 100%;
         max-width: var(--mobile-menu-width);
         margin-right: 0;
-        transform: translate3d(0, var(--mobile-menu-y-pos), 0);
+        transform: translate3d(var(--mobile-menu-x-pos), 0, 0);
         visibility: hidden;
         animation-fill-mode: both;
         padding-top: 10px;
         padding-bottom: 100px;
-        background-color: var(--black);
-        z-index: 10;
-        animation-duration: 0.5s;
-    }
-
-    .header:before {
-        content: "";
-        display: block;
-        position: absolute;
         background-color: var(--dark);
-        top: 0;
-        height: 100%;
-        right: 0;
-        width: 100%;
-        max-width: var(--mobile-menu-width);
-        transition: background-color 0.5s linear;
-    }
-
-    .header_menu-open:before {
-        background-color: var(--black);
+        z-index: 10;
+        animation-duration: 0.3s;
     }
 
     .header__menu-content {
@@ -1311,7 +1295,7 @@ button:disabled.btn {
 @keyframes slideIn {
     0% {
         visibility: visible;
-        transform: translate3d(0, var(--mobile-menu-y-pos), 0)
+        transform: translate3d(var(--mobile-menu-x-pos),0 , 0)
     }
 
     100% {
@@ -1327,7 +1311,7 @@ button:disabled.btn {
     }
     to {
         visibility: hidden;
-        transform: translate3d(0, var(--mobile-menu-y-pos), 0)
+        transform: translate3d(var(--mobile-menu-x-pos),0, 0)
     }
 }
 
