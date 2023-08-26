@@ -22,13 +22,14 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
-  <link rel="manifest" href="./assets/favicons/site.webmanifest">
+<!--  <link rel="manifest" href="./assets/favicons/site.webmanifest">-->
   <title>Library</title>
   <link href="./css/normalize.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
+  <link href="./dev/outline.css" rel="stylesheet">
 </head>
 
-<body>
+<body >
 <div class="page">
   <header class="header">
     <a class="header__home-link" href="./">
@@ -57,10 +58,32 @@
       </div>
     </nav>
 
-    <div class="user-menu header__user-menu">
+    <div class="user-menu user-menu_guest header__user-menu">
       <div class="user-menu__avatar-wrap">
         <img class="user-menu__avatar" src="./assets/svg/icon-profile.svg" alt="User avatar" width="28" height="28">
       </div>
+      <ul class="user-menu__content user-menu__content_guest">
+        <li class="user-menu__item user-menu__title">
+          Profile
+        </li>
+        <li class="user-menu__item">
+          <a href="" class="user-menu__link">Log In</a>
+        </li>
+        <li class="user-menu__item">
+          <a href="" class="user-menu__link">Register</a>
+        </li>
+      </ul>
+      <ul class="user-menu__content user-menu__content_logged">
+        <li class="user-menu__item user-menu__title">
+          Profile
+        </li>
+        <li class="user-menu__item">
+          <a href="" class="user-menu__link">Log In</a>
+        </li>
+        <li class="user-menu__item">
+          <a href="" class="user-menu__link">Register</a>
+        </li>
+      </ul>
     </div>
     <button class="hamburger hamburger_type_slider header__toggler">
         <span class="hamburger__box">
@@ -77,7 +100,7 @@
     </section>
 
     <section class="about page__about" id="about">
-      <h2 class="section-title">About</h2>
+      <h2 class="section-title" data-modal-id = "modal-1">About</h2>
       <p class="section-description">The Brooklyn Library is a free workspace, a large number of books and a cozy
         coffee shop inside </p>
       <div class="gallery about__gallery">
@@ -627,8 +650,8 @@
             <div class="card">
               <div class="card__wrap">
                 <p class="card__title">Brooklyn Public Library</p>
-                <input class="input card__input" type="text" placeholder="Reader's name" pattern="[A-Za-z]" required>
-                <input class="input card__input" type="text" placeholder="Card number" pattern="([0-9]|-)" required>
+                <input class="input card-input card__input" type="text" placeholder="Reader's name" pattern="[A-Za-z]" required>
+                <input class="input card-input card__input" type="text" placeholder="Card number" pattern="([0-9]|-)" required>
               </div>
               <button class="btn btn_large btn-transparent card__btn">Check the card</button>
             </div>
@@ -704,7 +727,172 @@
   </footer>
 </div>
 
-<script src="./js/index.js"></script>
+<!--<div class="modal-block modal-block_sm">-->
+<!--  <div class="modal-block__content">-->
+
+<!--    <div class="authorization-block">-->
+<!--      <h4 class="authorization-block__title">Register</h4>-->
+<!--      <form action="" class="authorization-block__form">-->
+<!--        <label class="authorization-block__input-field">-->
+<!--          <span class="authorization-block__input-name">First name</span>-->
+<!--          <input type="text" class="input form-input">-->
+<!--        </label>-->
+<!--        <label class="authorization-block__input-field">-->
+<!--          <span class="authorization-block__input-name">Last name</span>-->
+<!--          <input type="text" class="input form-input">-->
+<!--        </label>-->
+<!--        <label class="authorization-block__input-field">-->
+<!--          <span class="authorization-block__input-name">E-mail</span>-->
+<!--          <input type="email" class="input form-input">-->
+<!--        </label>-->
+<!--        <label class="authorization-block__input-field">-->
+<!--          <span class="authorization-block__input-name">Password</span>-->
+<!--          <input type="email" class="input form-input">-->
+<!--        </label>-->
+<!--        <button class="btn btn-transparent btn_pad_a">Sign Up</button>-->
+<!--      </form>-->
+<!--      <div class="authorization-block__footer">-->
+<!--        <span class="authorization-block__footer-text">Already have an account?</span>-->
+<!--        <a class="authorization-block__footer-link">Login</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <button class="modal-block__close-btn">-->
+<!--      <img src="./assets/svg/icon-close.svg" alt="" class="modal-block__close-icon">-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div class="modal-block modal-block_sm">-->
+<!--  <div class="modal-block__content">-->
+
+<!--    <div class="authorization-block">-->
+<!--      <h4 class="authorization-block__title">Login</h4>-->
+<!--      <form action="" class="authorization-block__form">-->
+<!--        <label class="authorization-block__input-field">-->
+<!--          <span class="authorization-block__input-name">E-mail or readers card</span>-->
+<!--          <input type="text" class="input form-input">-->
+<!--        </label>-->
+<!--        <label class="authorization-block__input-field authorization-block__password-field">-->
+<!--          <span class="authorization-block__input-name">Password</span>-->
+<!--          <input type="text" class="input form-input">-->
+<!--        </label>-->
+<!--        <button class="btn btn-transparent btn_pad_b">Log in</button>-->
+<!--      </form>-->
+<!--      <div class="authorization-block__footer">-->
+<!--        <span class="authorization-block__footer-text">Don’t have an account?</span>-->
+<!--        <a class="authorization-block__footer-link">Register</a>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <button class="modal-block__close-btn">-->
+<!--      <img src="./assets/svg/icon-close.svg" alt="" class="modal-block__close-icon">-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div class="modal-block">-->
+<!--  <div class="modal-block__content">-->
+<!--    <div class="profile-block">-->
+<!--      <div class="profile-block__avatar-column">-->
+<!--        <div class="profile-block__avatar">-->
+<!--          JD-->
+<!--        </div>-->
+<!--        <p class="profile-block__name">John Doe</p>-->
+<!--      </div>-->
+<!--      <div class="profile-block__content-column">-->
+<!--        <h4 class="profile-block__heading">My profile</h4>-->
+<!--        <div class="profile-block__info">-->
+<!--          <div class="profile-block__info-item info-item">-->
+<!--            <p class="info-item__title">visits</p>-->
+<!--            <img src="./assets/svg/icon-visits.svg" alt="" class="info-item__icon">-->
+<!--            <p class="info-item__counter">23</p>-->
+<!--          </div>-->
+<!--          <div class="profile-block__info-item info-item">-->
+<!--            <p class="info-item__title">bonuses</p>-->
+<!--            <img src="./assets/svg/icon-bonuses.svg" alt="" class="info-item__icon">-->
+<!--            <p class="info-item__counter">1240</p>-->
+<!--          </div>-->
+<!--          <div class="profile-block__info-item info-item">-->
+<!--            <p class="info-item__title">Books</p>-->
+<!--            <img src="./assets/svg/icon-books.svg" alt="" class="info-item__icon">-->
+<!--            <p class="info-item__counter">2</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <section class="profile-block__section">-->
+<!--          <h5 class="profile-block__section-title">Rented books</h5>-->
+<!--          <ul class="profile-block__list">-->
+<!--            <li class="profile-block__list__item">The Last Queen, Clive Irving</li>-->
+<!--            <li class="profile-block__list__item">Dominicana, Angie Cruz</li>-->
+<!--          </ul>-->
+<!--        </section>-->
+<!--        <div class="profile-block__card-info">-->
+<!--          <span>Card number</span>-->
+<!--          <span class="profile-block__card-number">F00234030</span>-->
+<!--          <button class="profile-block__copy-btn">-->
+<!--            <img src="./assets/svg/icon-copy.svg" alt="" class="profile-block__copy-icon">-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <button class="modal-block__close-btn">-->
+<!--      <img src="./assets/svg/icon-close.svg" alt="" class="modal-block__close-icon">-->
+<!--    </button>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="modal-block modal-block_md" id="modal-1">
+  <div class="modal-block__content">
+    <div class="buy-card">
+      <h4 class="buy-card__header">Buy a library card</h4>
+      <div class="buy-card__content">
+        <div class="buy-card__form-column">
+          <form action="" class="buy-card__form">
+            <label class="buy-card__input-field">
+              <span class="buy-card__input-name">Bank card number</span>
+              <input type="text" class="input form-input">
+            </label>
+            <label class="buy-card__input-field buy-card__expiration-field">
+              <span class="buy-card__input-name">Expiration code</span>
+              <input type="text" class="input form-input form-input_sm">
+              <input type="text" class="input form-input form-input_sm">
+            </label>
+            <label class="buy-card__input-field buy-card__cvc-field">
+              <span class="buy-card__input-name">CVC</span>
+              <input type="text" class="input form-input form-input_sm">
+            </label>
+            <label class="buy-card__input-field">
+              <span class="buy-card__input-name">Cardholder name</span>
+              <input type="text" class="input form-input">
+            </label>
+            <label class="buy-card__input-field">
+              <span class="buy-card__input-name">Postal code</span>
+              <input type="text" class="input form-input">
+            </label>
+            <label class="buy-card__input-field">
+              <span class="buy-card__input-name">City / Town</span>
+              <input type="text" class="input form-input">
+            </label>
+            <div class="buy-card__footer">
+              <button class="btn btn-transparent buy-card__buy-btn">Buy</button>
+              <span class="buy-card__sum">$ 25.00</span>
+            </div>
+          </form>
+        </div>
+        <div class="buy-card__text-column">
+          <p class="buy-card__text">If you are live, work, attend school, or pay property taxes in New York State, you can get a $25 digital library card right now using this online form. Visitors to New York State can also use this form to apply for a temporary card.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="modal-block__close-btn">
+      <img src="./assets/svg/icon-close-white.svg" alt="" class="modal-block__close-icon">
+    </button>
+  </div>
+
+</div>
+
+<script type="module" src="./js/index.js"></script>
 </body>
 
 </html>
