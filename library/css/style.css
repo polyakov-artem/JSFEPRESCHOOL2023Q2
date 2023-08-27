@@ -120,11 +120,6 @@ body {
     overflow-x: hidden;
 }
 
-.locked{
-    height: 100%;
-    overflow: hidden;
-}
-
 
 .page__welcome {
     margin-bottom: 1.25rem;
@@ -516,25 +511,55 @@ button:disabled.btn {
     right: 0;
     width: 80px;
     background-color: var(--white);
-    padding: 5px 10px 20px;
+    padding: 0 0.3125rem 1rem;
     text-align: center;
+    list-style: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+.user-menu_active .user-menu__content{
+    visibility: visible;
+    opacity: 1;
+}
+
 
 .user-menu__item {
     font-size: 0.9375rem;
     line-height: 1.25rem;
+    text-align: center;
+    padding: 0.3125rem;
+    margin-bottom: 0;
 }
 
 .user-menu__title {
     font-weight: 700;
+    position: relative;
+    margin-bottom: 0.6rem;
+}
+
+.user-menu__title:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 40px;
+    left: 50%;
+    top: 100%;
+    height: 1px;
+    background-color: var(--sand);
+    transform: translateX(-50%);
 }
 
 .user-menu__link {
     text-decoration: none;
     display: block;
+    color: var(--black);
 }
 
-
+.user-menu__link:hover {
+    font-weight: bold;
+}
 
 .user-menu__avatar-wrap {
     display: flex;
@@ -552,8 +577,6 @@ button:disabled.btn {
 .user-menu_logged .user-menu__content_logged{
     display: block;
 }
-
-
 
 .header__user-menu {
     margin-right: 0.65rem;
@@ -1209,7 +1232,7 @@ button:disabled.btn {
 .footer__creator {
 }
 
-.modal-block{
+.modal-block {
     position: fixed;
     top: 0;
     right: 0;
@@ -1223,19 +1246,12 @@ button:disabled.btn {
     padding: 30px 0;
     pointer-events: none;
     visibility: hidden;
-    transition: visibility 0.5s ease;
+    transition: background-color 0.5s ease, visibility 0.5s ease;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.modal-block:before{
-    content: '';
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity 0.15s ease;
-    background-color: black;
+.modal-block_active {
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modal-block__content{
@@ -1252,10 +1268,6 @@ button:disabled.btn {
 .modal-block_active{
     visibility: visible;
     pointer-events: auto;
-}
-
-.modal-block_active.modal-block:before{
-    opacity: 0.6;
 }
 
 .modal-block_active .modal-block__content{

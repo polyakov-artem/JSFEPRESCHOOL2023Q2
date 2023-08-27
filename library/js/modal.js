@@ -1,73 +1,118 @@
-const CLASS_VIEWPORT_LOCKED = 'locked'
-const CLASS_MODAL_OPEN = 'modal-block_active'
+export class Modal {
+  constructor(props = {}) {
+    this.classModal = props.classModal || 'modal-block'
+    this.classModalContent = props.classModalContent || 'modal-block__content'
+    this.attributeToggler = props.attributeToggler || "data-modal-id";
+    this.classModalActive = props.classModalActive || "modal-block_active";
+    this.classCloseBtn = props.classCloseBtn ||  "modal-block__close-btn";
+    this.classViewportLocked = props.classViewportLocked || "locked";
+    this.closeOnOutsideClick = props.closeOnOutsideClick || true;
+    this.closeClasses = props.closeClasses || [];
 
-const ATTRIBUTE_TOGGLER = 'data-modal-id'
-const SELECTOR_TOGGLER = '[' + ATTRIBUTE_TOGGLER + ']'
+    this.closeClasses.push(this.classCloseBtn);
 
-const CLASS_CLOSE_BTN = 'modal-block__close-btn'
-const SELECTOR_CLOSE_BTN = '.' + CLASS_CLOSE_BTN
+    this.activeModal = null;
+    this.bodyElement = document.querySelector("body");
+    this.bindEvents();
+  }
 
+  bindEvents() {
+    document.addEventListener("click", this._clickHandler.bind(this));
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
+  _clickHandler(e) {
+    const element = e.target;
+    const toggler = element.closest(`[${this.attributeToggler}]`);
+    const modalContent = element.closest(`.${this.classModalContent}`);
+    const isNotModalContent= !modalContent;
 
-    class Modal {
-        constructor() {
-            this._activeModal = null;
-            this._bodyElement = document.querySelector('body');
-            this.bindEvents()
-        }
+    if (toggler) {
+      e.preventDefault();
 
-        bindEvents(){
-            document.addEventListener("click", this._clickHandler.bind(this));
-        }
+      const nextModal = document.getElementById(toggler.getAttribute(this.attributeToggler));
+      if (!nextModal) return;
 
-        _clickHandler(e){
-            const toggler = e.target.closest(SELECTOR_TOGGLER);
-
-            if (toggler) {
-                e.preventDefault();
-                const target = document.getElementById(toggler.getAttribute(ATTRIBUTE_TOGGLER));
-                if (!target) return;
-
-                this._activeModal= target;
-                this._open();
-                return;
-            };
-
-            const closeBtn = e.target.closest(SELECTOR_CLOSE_BTN);
-
-            if (closeBtn){
-                this._close();
-            }
-        }
-
-        _open(){
-            this._fixViewportShift();
-            this._activeModal.classList.add(CLASS_MODAL_OPEN);
-            this._bodyElement.classList.add(CLASS_VIEWPORT_LOCKED)
-        }
-
-        _close(){
-            this._removeViewportFix();
-            this._activeModal.classList.remove(CLASS_MODAL_OPEN);
-            this._bodyElement.classList.remove(CLASS_VIEWPORT_LOCKED);
-            this._activeModal = null;
-        }
-
-        _fixViewportShift(){
-           let scrollWidth = this._getScrollWidth();
-           if (scrollWidth) this._bodyElement.style.paddingRight = scrollWidth + "px";
-        }
-
-        _removeViewportFix(){
-            this._bodyElement.style.paddingRight = "";
-        }
-
-        _getScrollWidth(){
-            return window.innerWidth - this._bodyElement.clientWidth;
-        }
+      this.activeModal = nextModal;
+      this._open();
+      return;
+    };
+    
+    if (
+        this.activeModal &&
+        this.closeOnOutsideClick && isNotModalContent ||
+        this._hasParentWithClass(element, this.closeClasses)
+      ) {
+      this._close();
+      return
     }
+  }
 
-    new Modal();
+  _open() {
+    this._addLock();
+    this._addActiveClasses()
+  }
 
-});
+  _close() {
+    this._removeActiveClasses();
+    this._removeLockAfterAnimation();
+    this.activeModal = null;
+  }
+
+  _removeLockAfterAnimation(){
+    const modal = this.activeModal;
+    const thisInstance = this;
+    
+    const listener = ()=>{
+      thisInstance._removeLock ();
+      modal.removeEventListener("transitionend", listener)
+    };
+
+    modal.addEventListener("transitionend", listener);
+  }
+
+  _addActiveClasses(){
+    this.activeModal.classList.add(this.classModalActive);
+  }
+
+  _removeActiveClasses(){
+    this.activeModal.classList.remove(this.classModalActive);
+  }
+
+  _hasParentWithClass (element, classes) {
+    if (!classes.length) return false;
+
+    let parent = element;
+
+    while (parent !== document) {
+      console.log(parent);
+      if (classes.some(className => parent.classList.contains(className))) {
+        return true;
+      };
+      
+      parent = parent.parentNode;
+    };
+
+    return false; 
+  }
+
+  _addLock() {
+    const scrollWidth = this._getScrollWidth();
+
+    this.bodyElement.style.height = "100%";
+    this.bodyElement.style.overflow = "hidden";
+
+    if (scrollWidth) {
+      this.bodyElement.style.paddingRight = scrollWidth + "px"
+    };
+  }
+
+  _removeLock() {
+    this.bodyElement.style.paddingRight = "";
+    this.bodyElement.style.height = "";
+    this.bodyElement.style.overflow = "";
+  }
+
+  _getScrollWidth() {
+    return window.innerWidth - this.bodyElement.clientWidth;
+  }
+}
