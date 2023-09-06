@@ -26,7 +26,7 @@
   <title>Library</title>
   <link href="./css/normalize.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-<!--  <link href="./dev/outline.css" rel="stylesheet">-->
+ <!-- <link href="./dev/outline.css" rel="stylesheet"> -->
 </head>
 
 <body >
@@ -58,33 +58,23 @@
       </div>
     </nav>
 
-    <div class="user-menu user-menu_guest header__user-menu">
+    <div class="user-menu header__user-menu">
       <div class="user-menu__avatar-wrap">
-        <img class="user-menu__avatar" src="./assets/svg/icon-profile.svg" alt="User avatar" width="28" height="28">
+        <img class="user-menu__guest-avatar" src="./assets/svg/icon-profile.svg" alt="User avatar" width="28" height="28">
       </div>
-      <ul class="user-menu__content user-menu__content_guest">
+      <ul class="user-menu__content">
         <li class="user-menu__item user-menu__title">
           Profile
         </li>
         <li class="user-menu__item">
-          <a href="#" class="user-menu__link" data-modal-id="login-modal">Log In</a>
+          <a href="#" class="user-menu__link" data-modal-id="modal-login">Log In</a>
         </li>
         <li class="user-menu__item">
-          <a href="#" class="user-menu__link" data-modal-id="register-modal">Register</a>
-        </li>
-      </ul>
-      <ul class="user-menu__content user-menu__content_logged">
-        <li class="user-menu__item user-menu__title">
-          Profile
-        </li>
-        <li class="user-menu__item">
-          <a href="#" class="user-menu__link" data-modal-id="profile-modal">My profile</a>
-        </li>
-        <li class="user-menu__item">
-          <a href="#" class="user-menu__link">Log Out</a>
+          <a href="#" class="user-menu__link" data-modal-id="modal-register">Register</a>
         </li>
       </ul>
     </div>
+
     <button class="hamburger hamburger_type_slider header__toggler">
         <span class="hamburger__box">
           <span class="hamburger__inner"></span>
@@ -100,7 +90,7 @@
     </section>
 
     <section class="about page__about" id="about">
-      <h2 class="section-title" data-modal-id = "modal-1">About</h2>
+      <h2 class="section-title">About</h2>
       <p class="section-description">The Brooklyn Library is a free workspace, a large number of books and a cozy
         coffee shop inside </p>
       <div class="gallery about__gallery">
@@ -664,8 +654,8 @@
             <p class="get-card__text">You will be able to see a reader card after logging into account or you can
               register a new account</p>
             <div class="get-card__buttons">
-              <button class="btn btn-transparent btn_pad_a get-card__btn">Sign Up</button>
-              <button class="btn btn-transparent btn_pad_b get-card__btn">Log in</button>
+              <button class="btn btn-transparent btn_pad_a get-card__btn" data-modal-id="modal-register">Sign Up</button>
+              <button class="btn btn-transparent btn_pad_b get-card__btn" data-modal-id="modal-login">Log in</button>
             </div>
           </div>
         </div>
@@ -727,33 +717,42 @@
   </footer>
 </div>
 
-<div class="modal-block modal-block_sm" id="register-modal">
+<div class="modal-block modal-block_sm" id="modal-register" >
   <div class="modal-block__window">
 
     <div class="authorization-block">
       <h4 class="authorization-block__title">Register</h4>
-      <form action="" class="authorization-block__form">
-        <label class="authorization-block__input-field">
-          <span class="authorization-block__input-name">First name</span>
-          <input type="text" class="input form-input">
-        </label>
-        <label class="authorization-block__input-field">
-          <span class="authorization-block__input-name">Last name</span>
-          <input type="text" class="input form-input">
-        </label>
-        <label class="authorization-block__input-field">
-          <span class="authorization-block__input-name">E-mail</span>
-          <input type="email" class="input form-input">
-        </label>
-        <label class="authorization-block__input-field">
-          <span class="authorization-block__input-name">Password</span>
-          <input type="email" class="input form-input">
-        </label>
-        <button class="btn btn-transparent btn_pad_a">Sign Up</button>
+      <form action="" class="signup-form authorization-block__signup-form">
+        
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">First name</span>
+          <input type="text" class="input form-input" name ="first-name">
+          <span class="form-field__state"></span>
+        </div>
+
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">Last name</span>
+          <input type="text" class="input form-input" name ="last-name">
+          <span class="form-field__state"></span>
+        </div>
+
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">E-mail</span>
+          <input type="text" class="input form-input" name ="email">
+          <span class="form-field__state"></span>
+        </div>
+
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">Password</span>
+          <input type="text" class="input form-input" name ="password">
+          <span class="form-field__state"></span>
+        </div>
+
+        <button class="btn btn-transparent btn_pad_a" type="submit">Sign Up</button>
       </form>
       <div class="authorization-block__footer">
         <span class="authorization-block__footer-text">Already have an account?</span>
-        <a class="authorization-block__footer-link" href="#" data-modal-id="login-modal">Login</a>
+        <a class="authorization-block__footer-link" href="#" data-modal-id="modal-login">Login</a>
       </div>
     </div>
 
@@ -763,24 +762,29 @@
   </div>
 </div>
 
-<div class="modal-block modal-block_sm" id="login-modal">
+<div class="modal-block modal-block_sm" id="modal-login">
   <div class="modal-block__window">
     <div class="authorization-block">
       <h4 class="authorization-block__title">Login</h4>
-      <form action="" class="authorization-block__form">
-        <label class="authorization-block__input-field">
-          <span class="authorization-block__input-name">E-mail or readers card</span>
-          <input type="text" class="input form-input">
-        </label>
-        <label class="authorization-block__input-field authorization-block__password-field">
-          <span class="authorization-block__input-name">Password</span>
-          <input type="text" class="input form-input">
-        </label>
-        <button class="btn btn-transparent btn_pad_b">Log in</button>
+      <form action="" class="login-form authorization-block__login-form">
+
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">E-mail or readers card</span>
+          <input type="text" class="input form-input" name ="email">
+          <span class="form-field__state"></span>
+        </div>
+
+        <div class="form-field authorization-block__form-field">
+          <span class="form-label form-field__form-label">Password</span>
+          <input type="text" class="input form-input" name ="password">
+          <span class="form-field__state"></span>
+        </div>
+
+        <button class="btn btn-transparent btn_pad_b" type="submit">Log in</button>
       </form>
       <div class="authorization-block__footer">
         <span class="authorization-block__footer-text">Don’t have an account?</span>
-        <a class="authorization-block__footer-link" href="#" data-modal-id="register-modal">Register</a>
+        <a class="authorization-block__footer-link" href="#" data-modal-id="modal-register">Register</a>
       </div>
     </div>
 
@@ -790,7 +794,7 @@
   </div>
 </div>
 
-<div class="modal-block" id="profile-modal">
+<div class="modal-block" id="modal-profile">
   <div class="modal-block__window">
     <div class="profile-block">
       <div class="profile-block__avatar-column">
@@ -840,7 +844,7 @@
   </div>
 </div>
 
-<div class="modal-block modal-block_md" id="buy-card-modal">
+<div class="modal-block modal-block_md" id="modal-buycard">
   <div class="modal-block__window">
     <div class="buy-card">
       <h4 class="buy-card__header">Buy a library card</h4>
