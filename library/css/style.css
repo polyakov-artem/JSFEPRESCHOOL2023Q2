@@ -221,26 +221,19 @@ button:disabled.btn {
     color: var(--gray);
 }
 
-.card-input {
-    height: 4.125rem;
-    padding: 0 1.25rem;
-    font-size: 1.875rem;
-    font-family: var(--ff-forum);
-    border: 1px solid var(--sand);
-    letter-spacing: 0.0375rem;
-    background: var(--white);
-    color: var(--black);
-    border-radius: 0.625rem;
-}
-
 .input:disabled {
     cursor: default;
 }
 
-.card-input:focus {
-    box-shadow: 0 0 3px 3px var(--black_20);
+.form-field{
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
+.form-field__form-label{
+    margin: 0 0 0.6rem;
+}
 
 .form-input {
     height: 1.25rem;
@@ -254,9 +247,37 @@ button:disabled.btn {
     box-shadow: 0 0 3px 1px var(--sand);
 }
 
-.form-input_sm {
-    max-width: 2.8125rem;
+.form-label {
+    display: inline-block;
+    font-size: 0.9375rem;
+    letter-spacing: 0.01875rem;
+    line-height: 1.25rem;
 }
+
+
+.card-input {
+    height: 4.125rem;
+    padding: 0 1.25rem;
+    font-size: 1.875rem;
+    font-family: var(--ff-forum);
+    border: 1px solid var(--sand);
+    letter-spacing: 0.0375rem;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 0.625rem;
+}
+
+
+
+
+.card-input:focus {
+    box-shadow: 0 0 3px 3px var(--black_20);
+}
+
+
+/* .input_type_form_sm {
+    max-width: 2.8125rem;
+} */
 
 .radio__label {
     cursor: pointer;
@@ -344,14 +365,6 @@ button:disabled.btn {
     border: 0;
     margin: 0;
     overflow: visible;
-}
-
-.hamburger:focus {
-    /*opacity: 0.7;*/
-}
-
-.hamburger_active:hover {
-    /*opacity: 0.7;*/
 }
 
 .hamburger_active .hamburger__inner,
@@ -505,20 +518,17 @@ button:disabled.btn {
 
 .user-menu {
     position: relative;
-    height: 100%;
     flex: none;
-    display: flex;
-    align-items: center;
 }
 
 .user-menu__content {
-    display: none;
     position: absolute;
     top: 100%;
     right: 0;
     width: 80px;
+    margin: 0;
     background-color: var(--white);
-    padding: 0 0.3125rem 1rem;
+    padding: 0 2px 16px;
     text-align: center;
     list-style: none;
     visibility: hidden;
@@ -531,19 +541,22 @@ button:disabled.btn {
     opacity: 1;
 }
 
-
 .user-menu__item {
-    font-size: 0.9375rem;
-    line-height: 1.25rem;
+    font-size: 15px;;
+    line-height: 20px;
     text-align: center;
-    padding: 0.3125rem;
+    padding: 5px 0;
     margin-bottom: 0;
 }
 
 .user-menu__title {
     font-weight: 700;
     position: relative;
-    margin-bottom: 0.6rem;
+    margin-bottom: 10px;
+}
+
+.user-menu__title_sm {
+    font-size: 12px;
 }
 
 .user-menu__title:after {
@@ -569,24 +582,29 @@ button:disabled.btn {
 }
 
 .user-menu__avatar-wrap {
-    display: flex;
     cursor: pointer;
+    height: 1.75rem;
+    width: 1.75rem;
 }
 
-.user-menu__avatar {
-    flex: none;
+.user-menu__guest-avatar {
+    height: 100%;
+    width: 100%;
 }
 
-.user-menu_guest .user-menu__content_guest {
-    display: block;
-}
-
-.user-menu_logged .user-menu__content_logged {
-    display: block;
+.user-menu__user-avatar {
+    text-align: center;
+    color: var(--sand);
+    background-color: var(--white);
+    font-size: 0.9375rem;
+    line-height: 1.75rem;
+    border-radius: 50%;
+    user-select: none;
 }
 
 .header__user-menu {
     margin-right: 0.65rem;
+    flex: none;
 }
 
 .header__toggler {
@@ -1241,7 +1259,8 @@ button:disabled.btn {
     visibility: hidden;
     background-color: #000000;
     opacity: 0;
-    transition: opacity var(--modal-animation-time) ease;
+    transition: opacity var(--modal-animation-time) ease,
+                visibility var(--modal-animation-time) ease;
 }
 
 .modal-overlay_active {
@@ -1277,8 +1296,8 @@ button:disabled.btn {
     transition: transform var(--modal-animation-time) ease,
                 opacity var(--modal-animation-time) ease,
                 visibility var(--modal-animation-time) ease;
-    transform: scale(0.9);
-    opacity: 0;
+    transform: scale(0.9); 
+    opacity: 0; 
     visibility: hidden;
 }
 
@@ -1406,7 +1425,6 @@ button:disabled.btn {
 .info-item__counter {
     font-size: 0.625rem;
     line-height: 1.25rem;
-    /* 200% */
     letter-spacing: 0.0125rem;
 }
 
@@ -1479,29 +1497,9 @@ button:disabled.btn {
 }
 
 
-.authorization-block__form {
-    margin: 0 0 0;
-}
-
-.authorization-block__input-field {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.7rem;
-
-}
-
-.authorization-block__password-field {
+.authorization-block__form-field {
     margin-bottom: 0.7rem;
 }
-
-.authorization-block__input-name {
-    display: inline-block;
-    font-size: 0.9375rem;
-    letter-spacing: 0.01875rem;
-    margin: 0 0 0.6rem;
-    line-height: 1.25rem;
-}
-
 
 .authorization-block__footer {
     line-height: 1;
@@ -1603,7 +1601,6 @@ button:disabled.btn {
     font-style: normal;
     font-weight: bold;
     line-height: 1;
-    /* 100% */
     letter-spacing: 0.125rem;
     text-transform: uppercase;
 }
@@ -1613,7 +1610,6 @@ button:disabled.btn {
     color: var(--gray);
     font-size: 0.9375rem;
     line-height: 1.25rem;
-    /* 133.333% */
     letter-spacing: 0.125rem;
     margin: 0;
 }
