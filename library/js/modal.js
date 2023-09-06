@@ -1,71 +1,62 @@
+const ATTRIBUTE_TOGGLER = "data-modal-id";
+const CLASS_MODAL_ACTIVE = "modal-block_active";
+const CLASS_MODAL_WINDOW = "modal-block__window";
+const CLASS_CLOSE_BTN = "modal-block__close-btn";
+const CLASS_OVERLAY = "modal-overlay";
+const CLASS_OVERLAY_ACTIVE = "modal-overlay_active";
+
+
 export class Modal {
-  constructor(props = {}) {
-    this.attributeToggler = props.attributeToggler || "data-modal-id";
-    this.classModalActive = props.classModalActive || "modal-block_active";
-    this.classModalWindow = props.classModalWindow || "modal-block__window";
-
-    this.classCloseBtn = props.classCloseBtn || "modal-block__close-btn";
-    this.classOverlay = props.classOverlay || "modal-overlay";
-    this.classOverlayActive =
-      props.classOverlayActive || "modal-overlay_active";
-    this.closeClasses = props.closeClasses || [];
-
-    this.closeClasses.push(this.classCloseBtn);
-
-    this.activeModal = null;
+  constructor(element) {
+    this._activeModal = null;
     this.overlay = null;
-
     this.bodyElement = document.querySelector("body");
 
     this._createOverlay();
-    this.bindEvents();
+    this._bind();
   }
 
   _createOverlay() {
     if (this.overlay) return;
     this.overlay = document.createElement("div");
-    this.overlay.classList.add(this.classOverlay);
+    this.overlay.classList.add(CLASS_OVERLAY);
     this.bodyElement.append(this.overlay);
   }
 
-  bindEvents() {
+  _bind() {
     document.addEventListener("click", this._clickHandler.bind(this));
+    document.modal = this;
   }
 
   _clickHandler(e) {
     const element = e.target;
-    const toggler = element.closest(`[${this.attributeToggler}]`);
-    const modalWindow = element.closest(`.${this.classModalWindow}`);
+    const toggler = element.closest(`[${ATTRIBUTE_TOGGLER}]`);
+    const closeBtn = element.closest(`.${CLASS_CLOSE_BTN}`);
+    const modalWindow = element.closest(`.${CLASS_MODAL_WINDOW}`);
     const isNotModalWindow = !modalWindow;
 
     if (toggler) {
       e.preventDefault();
 
-      const nextModal = document.getElementById(
-        toggler.getAttribute(this.attributeToggler)
-      );
+      const nextModal = document.getElementById(toggler.getAttribute(ATTRIBUTE_TOGGLER));
       if (!nextModal) return;
 
-      if (!this.activeModal) {
-        this.activeModal = nextModal;
+      if (!this._activeModal) {
+        this._activeModal = nextModal;
         this._open();
         return;
       }
 
-      if (this.activeModal && nextModal !== this.activeModal) {
-        this._closeCurrentWindow();
-        this.activeModal = nextModal;
-        this._openNextWindow();
+      if (this._activeModal && nextModal !== this._activeModal) {
+        this._removeModalClasses();
+        this._activeModal = nextModal;
+        this._addModalClasses();
         return;
       }
     }
 
-    if (
-      this.activeModal &&
-      (isNotModalWindow || this._hasParentWithClass(element, this.closeClasses))
-    ) {
-      this._close();
-      return;
+    if (isNotModalWindow || closeBtn) {
+      this.close();
     }
   }
 
@@ -75,19 +66,12 @@ export class Modal {
     this._addOverlayClasses();
   }
 
-  _close() {
+  close() {
+    if (!this._activeModal) return;
     this._removeModalClasses();
     this._removeOverlayClasses();
     this._removeLockAfterAnimation();
-    this.activeModal = null;
-  }
-
-  _closeCurrentWindow() {
-    this._removeModalClasses();
-  }
-
-  _openNextWindow() {
-    this._addModalClasses();
+    this._activeModal = null;
   }
 
   _removeLockAfterAnimation() {
@@ -103,35 +87,19 @@ export class Modal {
   }
 
   _addModalClasses() {
-    this.activeModal.classList.add(this.classModalActive);
-  }
-
-  _addOverlayClasses() {
-    this.overlay.classList.add(this.classOverlayActive);
+    this._activeModal.classList.add(CLASS_MODAL_ACTIVE);
   }
 
   _removeModalClasses() {
-    this.activeModal.classList.remove(this.classModalActive);
+    this._activeModal.classList.remove(CLASS_MODAL_ACTIVE);
+  }
+
+  _addOverlayClasses() {
+    this.overlay.classList.add(CLASS_OVERLAY_ACTIVE);
   }
 
   _removeOverlayClasses() {
-    this.overlay.classList.remove(this.classOverlayActive);
-  }
-
-  _hasParentWithClass(element, classes) {
-    if (!classes.length) return false;
-
-    let parent = element;
-
-    while (parent !== document) {
-      if (classes.some((className) => parent.classList.contains(className))) {
-        return true;
-      }
-
-      parent = parent.parentNode;
-    }
-
-    return false;
+    this.overlay.classList.remove(CLASS_OVERLAY_ACTIVE);
   }
 
   _addLock() {
