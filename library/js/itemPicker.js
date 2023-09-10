@@ -2,7 +2,6 @@ const SELECTOR_CONTROLS = ".item-picker__controls-wrap";
 const ATTRIBUTE_TAB = "data-season";
 const SELECTOR_TAB_ACTIVE = ".item-picker__tab_active";
 const CLASS_TAB_ACTIVE = "item-picker__tab_active";
-const CLASS_FADEOUT = "item-picker__tab_fadeout";
 const CLASS_FADEIN = "item-picker__tab_fadein";
 const CLASS_BUY_BTN = "book-block__btn";
 const SELECTOR_BOOK = ".book-block";
@@ -12,6 +11,8 @@ const ATTRIBUTE_ORDER_CODE = "data-order-code"
 const ATTRIBUTE_MODAL = "data-modal-id"
 const VALUE_MODAL_REGISTER = "modal-register"
 const VALUE_MODAL_BUY = "modal-buycard";
+const CHECKPOINT_VALUE = 768;
+const CLASS_STICKY = "item-picker__controls-wrap_sticky";
 
 export class ItemPicker {
   constructor(element) {
@@ -20,38 +21,45 @@ export class ItemPicker {
     this._isLoggedIn = false;
     this._cardIsPaid = false;
     this._ownBooks = [];
+    this._controls = element.querySelector(SELECTOR_CONTROLS);
+    this._checkpointReached = window.innerWidth <= CHECKPOINT_VALUE;
+    this._controlsPosY = this._controls.offsetTop;
+
+    
     this._bindEvents();
   }
 
   _bindEvents() {
-    this._itemPicker.querySelector(SELECTOR_CONTROLS).addEventListener("change", this._changeHandler.bind(this));
+    this._controls.addEventListener("change", this._changeHandler.bind(this));
     this._itemPicker.addEventListener("click", this._buyBtnHandler.bind(this));
 
     document.addEventListener("serverResponse",this._serverResponseHandler.bind(this));
+
+    window.addEventListener("resize", this._resizeHandler.bind(this));
+    window.addEventListener("scroll", this._scrollHandler.bind(this));
   }
 
   _changeHandler(e) {
     const nextTabName = e.target.value;
     let nextTab = this._itemPicker.querySelector(
       `[${ATTRIBUTE_TAB}="${nextTabName}"]`
-    );
-    const currentTab = this._itemPicker.querySelector(SELECTOR_TAB_ACTIVE);
+      );
 
+    if (!nextTab) return;
     this._nextTab = nextTab;
-    currentTab.classList.add(CLASS_FADEOUT);
+
+    const currentTab = this._itemPicker.querySelector(SELECTOR_TAB_ACTIVE);
+    currentTab.classList.remove(CLASS_FADEIN);
+
+    currentTab.addEventListener("transitionend", currentTablistener);
     const self = this;
 
-    const listener = (e) => {
+    function currentTablistener () {
       currentTab.classList.remove(CLASS_TAB_ACTIVE);
-      currentTab.classList.remove(CLASS_FADEIN);
-      currentTab.classList.remove(CLASS_FADEOUT);
-
       self._nextTab.classList.add(CLASS_TAB_ACTIVE);
       self._nextTab.classList.add(CLASS_FADEIN);
-      currentTab.removeEventListener("animationend", listener);
+      currentTab.removeEventListener("transitionend", currentTablistener);
     };
-
-    currentTab.addEventListener("animationend", listener);
   }
 
   _serverResponseHandler(e) {
@@ -128,5 +136,26 @@ export class ItemPicker {
         },
       })
     );
+  }
+
+  _resizeHandler(){
+    const hadStickyClass = this._controls.classList.contains(CLASS_STICKY);
+
+    if (hadStickyClass) {
+      this._controls.classList.remove(CLASS_STICKY);
+      this._controlsPosY = this._controls.offsetTop;
+      this._controls.classList.add(CLASS_STICKY);
+    };
+    
+    this._checkpointReached = window.innerWidth <= CHECKPOINT_VALUE;
+
+  }
+
+  _scrollHandler(){
+    if (window.scrollY > this._controlsPosY && this._checkpointReached) {
+      this._controls.classList.add(CLASS_STICKY);
+    } else {
+      this._controls.classList.remove(CLASS_STICKY);
+    }
   }
 }
