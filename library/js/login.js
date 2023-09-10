@@ -1,67 +1,87 @@
+const CLASS_FORM_FIELD ="form-field"
+const CLASS_INPUT = "input";
+const CLASS_INPUT_STATE = "form-field__state";
+const CLASS_MODAL_OPEN = "modal-open";
+const CLASS_FORM_STATE = "login-form__state"
+
 export class Login {
-  constructor(form, app){
+  constructor(form){
     this._form = form;
-    this._app = app;
-    // this.data = {};
-    // this.isValid = false;
+    this._errorField = this._form.querySelector(`.${CLASS_FORM_STATE}`);
 
-    this._bindEvents();
+    this._bind();
   }
 
-  _bindEvents(){
-    this._form.addEventListener("submit", this._send.bind(this));
+  _bind(){
+    this._form.addEventListener("submit", this._submitHandler.bind(this));
+    document.addEventListener("serverResponse", this._serverResponseHandler.bind(this));
   }
 
-  _send(e){
+
+  _submitHandler(e){
     e.preventDefault();
-    
-    this._app.login({
-      email: "some@mail.ri",
-      password: "123",
-    });
+    const isValid = this._validateFields();
 
+    if (!isValid) {
+      return false;
+    }
+
+    const authData = {
+      email: this._form.email.value,
+      password: this._form.password.value
+    }
+
+    document.dispatchEvent(new CustomEvent("clientSubmit", {detail: {type: "login", authData: authData}}))
+    
     return false;
   }
 
-  // _submitHandler(e){
-  //   e.preventDefault();
-  //   console.log(this.form.elements);
+  _serverResponseHandler(e){
+    const response = e.detail;
+    if (response.type !== "login") return;
 
-  //   this._getFormData();
-  //   this._validateForm();
+    if (!response.done) {
+      this._errorField.textContent = response.message;
+      return;
+    }
 
-  //   if (this.isValid) {
-  //     this._getData();
-  //     this._sendData();
-  //     this._clear();
-  //   };
-  // }
+    this._errorField.textContent = "";
+    this._clearFields();
 
-  // _getFormData(){
-  //   const formData = {
+    if (document.querySelector("body").classList.contains(CLASS_MODAL_OPEN)) {
+      document.modal.close();
+    }
+  }
+  
 
-  //   }
-  //   this.formData = formData;
-  // }
+  _clearFields() {
+    const inputs = this._form.querySelectorAll(`.${CLASS_INPUT}`);
+    inputs.forEach(input => input.value = "")
+  }
 
-  // _getData(){
-  //   for (let key in this.formData){
-  //     this.data[key] = this.formData[key].value
-  //   }
-  // }
+  _validateFields(){
+    const fields = this._form.querySelectorAll(`.${CLASS_FORM_FIELD}`);
+    let isValid = true;
 
-  // _validateForm(){
-  //   this.isValid = true;
-  // }
+    fields.forEach(field => {
+      const input = field.querySelector(`.${CLASS_INPUT}`);
+      const state = field.querySelector(`.${CLASS_INPUT_STATE}`);
+      const name = input.getAttribute("name");
 
+      let stateContent = "";
 
-  // _sendData(){
-  //   document.dispatchEvent(new CustomEvent("eSignup", {
-  //     detail: this.data
-  //   }))
-  // }
+      switch (name) {
+        case "password":
+          if (input.value.length < 8 ) stateContent = "Enter at least 8 characters";
+          break;
+      }
 
-  // _clear(){
+      if (!input.value.trim().length) stateContent = "Complete the field";
 
-  // }
+      state.textContent = stateContent;
+      if (stateContent) isValid = false;
+    });
+
+    return isValid;
+  }
 }
