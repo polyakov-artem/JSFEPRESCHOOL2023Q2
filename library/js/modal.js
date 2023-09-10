@@ -4,23 +4,24 @@ const CLASS_MODAL_WINDOW = "modal-block__window";
 const CLASS_CLOSE_BTN = "modal-block__close-btn";
 const CLASS_OVERLAY = "modal-overlay";
 const CLASS_OVERLAY_ACTIVE = "modal-overlay_active";
+const CLASS_MODAL_OPEN = "modal-open"
 
 
 export class Modal {
-  constructor(element) {
+  constructor() {
     this._activeModal = null;
-    this.overlay = null;
-    this.bodyElement = document.querySelector("body");
+    this._overlay = null;
+    this._bodyElement = document.querySelector("body");
 
     this._createOverlay();
     this._bind();
   }
 
   _createOverlay() {
-    if (this.overlay) return;
-    this.overlay = document.createElement("div");
-    this.overlay.classList.add(CLASS_OVERLAY);
-    this.bodyElement.append(this.overlay);
+    if (this._overlay) return;
+    this._overlay = document.createElement("div");
+    this._overlay.classList.add(CLASS_OVERLAY);
+    this._bodyElement.append(this._overlay);
   }
 
   _bind() {
@@ -38,7 +39,9 @@ export class Modal {
     if (toggler) {
       e.preventDefault();
 
-      const nextModal = document.getElementById(toggler.getAttribute(ATTRIBUTE_TOGGLER));
+      const nextModal = document.getElementById(
+        toggler.getAttribute(ATTRIBUTE_TOGGLER)
+      );
       if (!nextModal) return;
 
       if (!this._activeModal) {
@@ -64,6 +67,7 @@ export class Modal {
     this._addLock();
     this._addModalClasses();
     this._addOverlayClasses();
+    this._addBodyClasses();
   }
 
   close() {
@@ -71,11 +75,12 @@ export class Modal {
     this._removeModalClasses();
     this._removeOverlayClasses();
     this._removeLockAfterAnimation();
+    this._removeBodyClasses();
     this._activeModal = null;
   }
 
   _removeLockAfterAnimation() {
-    const overlay = this.overlay;
+    const overlay = this._overlay;
     const thisInstance = this;
 
     const listener = () => {
@@ -84,6 +89,14 @@ export class Modal {
     };
 
     overlay.addEventListener("transitionend", listener);
+  }
+
+  _addBodyClasses() {
+    this._bodyElement.classList.add(CLASS_MODAL_OPEN);
+  }
+
+  _removeBodyClasses() {
+    this._bodyElement.classList.remove(CLASS_MODAL_OPEN);
   }
 
   _addModalClasses() {
@@ -95,31 +108,31 @@ export class Modal {
   }
 
   _addOverlayClasses() {
-    this.overlay.classList.add(CLASS_OVERLAY_ACTIVE);
+    this._overlay.classList.add(CLASS_OVERLAY_ACTIVE);
   }
 
   _removeOverlayClasses() {
-    this.overlay.classList.remove(CLASS_OVERLAY_ACTIVE);
+    this._overlay.classList.remove(CLASS_OVERLAY_ACTIVE);
   }
 
   _addLock() {
     const scrollWidth = this._getScrollWidth();
 
-    this.bodyElement.style.height = "100%";
-    this.bodyElement.style.overflow = "hidden";
+    this._bodyElement.style.height = "100%";
+    this._bodyElement.style.overflow = "hidden";
 
     if (scrollWidth) {
-      this.bodyElement.style.paddingRight = scrollWidth + "px";
+      this._bodyElement.style.paddingRight = scrollWidth + "px";
     }
   }
 
   _removeLock() {
-    this.bodyElement.style.paddingRight = "";
-    this.bodyElement.style.height = "";
-    this.bodyElement.style.overflow = "";
+    this._bodyElement.style.paddingRight = "";
+    this._bodyElement.style.height = "";
+    this._bodyElement.style.overflow = "";
   }
 
   _getScrollWidth() {
-    return window.innerWidth - this.bodyElement.clientWidth;
+    return window.innerWidth - this._bodyElement.clientWidth;
   }
 }
