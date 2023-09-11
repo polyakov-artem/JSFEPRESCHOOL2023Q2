@@ -18,6 +18,7 @@ const SELECTOR_BOOKS_COUNTER = ".card__item-books .info-item__counter"
 
 export class LibraryCard {
   constructor(element) {
+    this._isLoggedIn = false;
     this._libraryCard = element;
     this._getCard = element.querySelector(SELECTOR_GET_CARD);
     this._card = element.querySelector(SELECTOR_CARD);
@@ -50,13 +51,16 @@ export class LibraryCard {
       case "logout":
         this._updateView(response.data);
         break;
+      case "check":
+        this._checkHandler(response.data);
+        break;
     }
   }
 
   _updateView(userInfo) {
-    const isLoggedIn = !!userInfo.email;
+    this._isLoggedIn = !!userInfo.email;
 
-    if (isLoggedIn) {
+    if (this._isLoggedIn) {
       this._libraryCard.classList.remove(CLASS_LIBRARY_CARD_GUEST);
       this._getCard.classList.remove(CLASS_GET_CARD_GUEST);
 
@@ -78,9 +82,7 @@ export class LibraryCard {
     for (let key in userInfo) {
       switch (key) {
         case "firstName":
-        case "lasName":
-          const text =  `${userInfo.firstName} ${userInfo.lastName}`.trim();;
-          this._domName.value = text;
+          this._domName.value = `${userInfo.firstName}`;
           break;
         case "card":
           this._domCard.value = `${userInfo.card}`;
@@ -98,10 +100,42 @@ export class LibraryCard {
     }
   }
 
+
+  _checkHandler(data){
+    for (let key in data) {
+      switch (key) {
+        case "visits":
+          this._domVisitsCounter.textContent = `${data.visits}`;
+          break;
+        case "bonuses":
+          this._domBonusesCounter.textContent = `${data.bonuses}`;
+          break;
+        case "books":
+          this._domBooksCounter.textContent = `${data.books.length}`;
+          break;
+      }
+    };
+
+    this._card.classList.add(CLASS_CARD_USER);
+
+    setTimeout(() => {
+      this._card.classList.remove(CLASS_CARD_USER);
+    }, 10000);
+  }
+
   _btnHandler(e) {
     const btn = e.target.closest(SELECTOR_BTN);
     if (!btn) return;
 
     e.preventDefault();
+
+    document.dispatchEvent(new CustomEvent("clientSubmit", {detail:{
+      type: "check",
+      checkData: {
+        firstName: this._domName.value.trim(),
+        card: this._domCard.value.trim(),
+      }
+    }}))
+
   }
 }
