@@ -23,11 +23,14 @@ export class Server {
   }
 
   _clientSubmitHandler(e) {
-    const { type, signupData, authData, change } = e.detail;
+    const { type, signupData, authData, change, checkData } = e.detail;
     
     switch (type) {
       case "login":
         this._login(authData);
+        break;
+      case "check":
+        this._check(checkData);
         break;
       case "signup":
         this._signup(signupData);
@@ -39,6 +42,35 @@ export class Server {
         this._dispatchResponseEvent({done: true, type: "logout", data: this._clone(defaultUserInfo)});
         break;
     }
+  }
+
+
+  _check(checkData = {}){
+    const { firstName, card } = checkData;
+    if (!firstName || !card) return;
+
+    const users = this._getUsers();
+    let email = null;
+
+    for (let key in users) {
+      if (users[key].card === card) {
+        email = users[key].email;
+        break;
+      }
+    };
+    
+    const userInfo = users[email];
+    if (!userInfo || userInfo.firstName !== firstName) return;
+
+    this._dispatchResponseEvent({
+      done: true,
+      type: "check",
+      data: {
+        visits: userInfo.visits,
+        bonuses: userInfo.bonuses,
+        books: userInfo.books,
+      },
+    });
   }
 
   _login(authData = {}) {
@@ -137,7 +169,10 @@ export class Server {
     let email = null;
 
     for (let key in users) {
-      if (users[key].card === card) email = users[key].email;
+      if (users[key].card === card) {
+        email = users[key].email;
+        break;
+      }
     }
 
     return email;
