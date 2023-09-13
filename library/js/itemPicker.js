@@ -27,6 +27,12 @@ export class ItemPicker {
 
     
     this._bindEvents();
+
+    if (window.innerWidth <= CHECKPOINT_VALUE) {
+      this._controls.classList.add(CLASS_STICKY);
+    } else {
+      this._controls.classList.remove(CLASS_STICKY);
+    };
   }
 
   _bindEvents() {
@@ -36,7 +42,6 @@ export class ItemPicker {
     document.addEventListener("serverResponse",this._serverResponseHandler.bind(this));
 
     window.addEventListener("resize", this._resizeHandler.bind(this));
-    window.addEventListener("scroll", this._scrollHandler.bind(this));
   }
 
   _changeHandler(e) {
@@ -139,20 +144,7 @@ export class ItemPicker {
   }
 
   _resizeHandler(){
-    const hadStickyClass = this._controls.classList.contains(CLASS_STICKY);
-
-    if (hadStickyClass) {
-      this._controls.classList.remove(CLASS_STICKY);
-      this._controlsPosY = this._controls.offsetTop;
-      this._controls.classList.add(CLASS_STICKY);
-    };
-    
-    this._checkpointReached = window.innerWidth <= CHECKPOINT_VALUE;
-
-  }
-
-  _scrollHandler(){
-    if (window.scrollY > this._controlsPosY && this._checkpointReached) {
+    if (window.innerWidth <= CHECKPOINT_VALUE) {
       this._controls.classList.add(CLASS_STICKY);
     } else {
       this._controls.classList.remove(CLASS_STICKY);
