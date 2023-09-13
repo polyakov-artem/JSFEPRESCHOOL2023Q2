@@ -9,8 +9,8 @@ import { Login } from "./login.js";
 import { Profile } from "./profile.js";
 import { BuyCard } from "./buyCard.js";
 import { LibraryCard } from "./libraryCard.js";
-
 import { ItemPicker } from "./itemPicker.js";
+// import { Gallery } from "./gallery.js";
 
 const SELECTOR_HEADER= ".header";
 const SELECTOR_SIGNUP_FORM = ".signup-form";
@@ -19,6 +19,7 @@ const SELECTOR_PROFILE = ".profile-block";
 const SELECTOR_ITEM_PICKER = ".item-picker";
 const SELECTOR_BUY_CARD = ".buy-card";
 const SELECTOR_LIBRARY_CARD = ".library-card";
+const SELECTOR_GALLERY = ".gallery";
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -62,6 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     new LibraryCard(element);
   });
 
+  // document.querySelectorAll(SELECTOR_GALLERY).forEach((element) => {
+  //   new Gallery(element);
+  // });
+
   new AuthController();
   
 });
@@ -69,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 console.log(`
-Привет, в ближайшее время постараюсь доделать слайдер в About.
+
 Текущая самооценка выполения ТЗ: 175/200
 
 ## Требования к функционалу тз
