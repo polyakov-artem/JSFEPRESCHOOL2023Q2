@@ -77,12 +77,10 @@ export class LibraryCard {
       this._card.classList.remove(CLASS_CARD_USER);
     }
 
-
-
     for (let key in userInfo) {
       switch (key) {
         case "firstName":
-          this._domName.value = `${userInfo.firstName}`;
+          this._domName.value = `${userInfo.firstName} ${userInfo.lastName}`.trim();
           break;
         case "card":
           this._domCard.value = `${userInfo.card}`;
@@ -120,6 +118,9 @@ export class LibraryCard {
 
     setTimeout(() => {
       this._card.classList.remove(CLASS_CARD_USER);
+      this._domName.value = "";
+      this._domCard.value = "";
+
     }, 10000);
   }
 
