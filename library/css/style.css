@@ -119,8 +119,7 @@ body {
     margin: 0 auto;
     background-color: var(--white);
     max-width: var(--page-width);
-    overflow-x: hidden;
-    height: 100vh;
+    overflow-x: clip;
 }
 
 
@@ -802,6 +801,8 @@ body {
 
 .item-picker{
     position: relative;
+    overflow: visible;
+    height: max-content;
 }
 
 .item-picker__title {
