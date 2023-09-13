@@ -79,7 +79,7 @@ export class UserMenu {
     title.textContent = userInfo.card;
     
     const userAvatar =this._userMenu.querySelector(`.${CLASS_USER_AVATAR}`);
-    userAvatar.setAttribute("title", `${userInfo.firstName} ${userInfo.lastName}`)
+    userAvatar.setAttribute("title", `${userInfo.firstName}`)
     userAvatar.textContent = `${userInfo.firstName.toUpperCase()[0]}${userInfo.lastName.toUpperCase()[0]}`;
   }
 }
