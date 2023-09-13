@@ -60,7 +60,7 @@ export class Server {
     };
     
     const userInfo = users[email];
-    if (!userInfo || userInfo.firstName !== firstName) return;
+    if (!userInfo || userInfo.firstName.toLowerCase() != firstName.toLowerCase()) return;
 
     this._dispatchResponseEvent({
       done: true,

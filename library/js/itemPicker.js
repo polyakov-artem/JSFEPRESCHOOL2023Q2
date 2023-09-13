@@ -9,7 +9,7 @@ const SELECTOR_BOOK_TITLE = ".book-block__title"
 const SELECTOR_BOOK_AUTHOR = ".book-block__author"
 const ATTRIBUTE_ORDER_CODE = "data-order-code"
 const ATTRIBUTE_MODAL = "data-modal-id"
-const VALUE_MODAL_REGISTER = "modal-register"
+const VALUE_MODAL_LOGIN = "modal-login"
 const VALUE_MODAL_BUY = "modal-buycard";
 const CHECKPOINT_VALUE = 768;
 const CLASS_STICKY = "item-picker__controls-wrap_sticky";
@@ -87,7 +87,7 @@ export class ItemPicker {
 
     if (!this._isLoggedIn) {
       buyButtons.forEach((btn) => {
-        btn.setAttribute(ATTRIBUTE_MODAL, VALUE_MODAL_REGISTER);
+        btn.setAttribute(ATTRIBUTE_MODAL, VALUE_MODAL_LOGIN);
         btn.removeAttribute("disabled");
         btn.textContent = "Buy"
       });
