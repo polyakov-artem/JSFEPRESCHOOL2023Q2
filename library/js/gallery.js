@@ -35,24 +35,39 @@ export class Gallery {
     this._bindEvents();
   }
 
-  _bindEvents() {
-    window.addEventListener("resize", ()=>{ this._update()});
+  _getViewSettings() {
+    const windowWidth = window.innerWidth;
+    for (let i = 0; i < this._viewSettings.length; i++) {
+      if (windowWidth <= this._viewSettings[i].maxVWidth) {
+        this._curViewSettings = this._viewSettings[i];
+        break;
+      }
+    }
 
-    window.addEventListener("load", () => {
-      this._update();
-      this._gallery.addEventListener("click", this._clickHandler.bind(this));
-    });
+    this._numOfSlides = this._items.length - this._curViewSettings.items;
   }
 
   _createDots() {
     const tempContainer = new DocumentFragment();
-    for (let i = 0; i <= this._numOfSlides; i++) {
+    for (let i = 0; i < this._items.length; i++) {
       tempContainer.append(this._createDot());
     }
 
     tempContainer.children[0].classList.add(CLASS_DOT_ACTIVE);
     this._dotsContainer.append(tempContainer);
     this._dots = this._gallery.querySelectorAll(SELECTOR_DOT);
+  }
+
+  _bindEvents() {
+    window.addEventListener("resize", () => {
+      this._slide(0);
+      this._update();
+    });
+
+    window.addEventListener("load", () => {
+      this._update();
+      this._gallery.addEventListener("click", this._clickHandler.bind(this));
+    });
   }
 
   _createDot() {
@@ -67,18 +82,6 @@ export class Gallery {
     this._updateControls();
   }
 
-  _getViewSettings() {
-    const windowWidth = window.innerWidth;
-    for (let i = 0; i < this._viewSettings.length; i++) {
-      if (windowWidth <= this._viewSettings[i].maxVWidth) {
-        this._curViewSettings = this._viewSettings[i];
-        break;
-      }
-    };
-
-    this._numOfSlides = this._items.length - this._curViewSettings.items; 
-  }
-
   _getShiftValue(viewportWidth) {
     const { items, gap } = this._curViewSettings;
     const itemWidth = (viewportWidth - (items - 1) * gap) / items;
@@ -86,7 +89,7 @@ export class Gallery {
   }
 
   _updateControls() {
-      this._dots.forEach((dot, index) => {
+    this._dots.forEach((dot, index) => {
       if (index <= this._numOfSlides) {
         dot.classList.add(CLASS_DOT_VISIBLE);
       } else {
@@ -100,7 +103,10 @@ export class Gallery {
 
     this._dots[this._activeSlide].classList.remove(CLASS_DOT_ACTIVE);
     this._dots[slideNum].classList.add(CLASS_DOT_ACTIVE);
-    this._itemsWrap.setAttribute("style", `transform: translateX(${this._shiftValue * slideNum}px);`);
+    this._itemsWrap.setAttribute(
+      "style",
+      `transform: translateX(${this._shiftValue * slideNum}px);`
+    );
     this._activeSlide = slideNum;
 
     switch (slideNum) {
@@ -145,22 +151,21 @@ export class Gallery {
 
     if (nextBtn) {
       this._slideRight();
-      return
-    };
+      return;
+    }
 
     if (prevBtn) {
       this._slideLeft();
-      return
-    };
+      return;
+    }
 
     if (dot) {
-       let index = 0;
-        while (this._dots[index] !== dot) {
-          index++;
-        }
-        this._slide(index);
-      return
-    };
-
+      let index = 0;
+      while (this._dots[index] !== dot) {
+        index++;
+      }
+      this._slide(index);
+      return;
+    }
   }
 }
