@@ -46,7 +46,7 @@ export class Gallery {
 
   _createDots() {
     const tempContainer = new DocumentFragment();
-    for (let i = 0; i < this._numOfSlides; i++) {
+    for (let i = 0; i <= this._numOfSlides; i++) {
       tempContainer.append(this._createDot());
     }
 
@@ -76,7 +76,7 @@ export class Gallery {
       }
     };
 
-    this._numOfSlides = this._items.length - this._curViewSettings.items + 1; 
+    this._numOfSlides = this._items.length - this._curViewSettings.items; 
   }
 
   _getShiftValue(viewportWidth) {
@@ -87,7 +87,7 @@ export class Gallery {
 
   _updateControls() {
       this._dots.forEach((dot, index) => {
-      if (index < this._numOfSlides) {
+      if (index <= this._numOfSlides) {
         dot.classList.add(CLASS_DOT_VISIBLE);
       } else {
         dot.classList.remove(CLASS_DOT_VISIBLE);
@@ -108,7 +108,7 @@ export class Gallery {
         this._disableBtn(this._prevBtn);
         break;
 
-      case this._numOfSlides-1:
+      case this._numOfSlides:
         this._disableBtn(this._nextBtn);
         break;
 
