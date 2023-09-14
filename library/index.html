@@ -95,8 +95,9 @@
         <p class="section-description">The Brooklyn Library is a free workspace, a large number of books and a cozy
           coffee shop inside </p>
         <div class="gallery about__gallery">
-          <div class="gallery__wrap">
-            <div class="gallery__grid">
+
+          <div class="gallery__viewport">
+            <div class="gallery__items">
               <div class="gallery__item">
                 <img class="adaptive-img" src="./assets/img/about/2.jpg" alt="Library picture">
               </div>
@@ -113,20 +114,16 @@
                 <img class="adaptive-img" src="./assets/img/about/5.jpg" alt="Library picture">
               </div>
             </div>
-            <button class="gallery__btn gallery__prev-btn">
-              <img class="gallery__btn-icon" src="./assets/svg/icon-carret.svg" alt="Previous">
-            </button>
-            <button class="gallery__btn gallery__next-btn">
-              <img class="gallery__btn-icon" src="./assets/svg/icon-carret.svg" alt="Next">
-            </button>
           </div>
 
-          <div class="gallery-pagination">
-            <span class="gallery-pagination__dot gallery-pagination__dot_active"></span>
-            <span class="gallery-pagination__dot"></span>
-            <span class="gallery-pagination__dot"></span>
-            <span class="gallery-pagination__dot"></span>
-            <span class="gallery-pagination__dot"></span>
+          <button class="gallery__btn gallery__prev-btn" disabled>
+            <img class="gallery__btn-icon" src="./assets/svg/icon-carret.svg" alt="Previous">
+          </button>
+          <button class="gallery__btn gallery__next-btn">
+            <img class="gallery__btn-icon" src="./assets/svg/icon-carret.svg" alt="Next">
+          </button>
+
+          <div class="gallery__dots">
           </div>
         </div>
       </section>
