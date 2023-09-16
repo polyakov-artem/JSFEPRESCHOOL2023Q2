@@ -109,18 +109,23 @@ export class Gallery {
     );
     this._activeSlide = slideNum;
 
+    const prevBtnDisabled = this._prevBtn.hasAttribute("disabled");
+    const nextBtnDisabled = this._nextBtn.hasAttribute("disabled");
+
     switch (slideNum) {
       case 0:
         this._disableBtn(this._prevBtn);
+        if (nextBtnDisabled) this._enableBtn(this._nextBtn);
         break;
 
       case this._numOfSlides:
         this._disableBtn(this._nextBtn);
+        if (prevBtnDisabled) this._enableBtn(this._prevBtn);
         break;
 
       default:
-        this._enableBtn(this._prevBtn);
-        this._enableBtn(this._nextBtn);
+        if (nextBtnDisabled) this._enableBtn(this._nextBtn);
+        if (prevBtnDisabled) this._enableBtn(this._prevBtn);
         break;
     }
   }
