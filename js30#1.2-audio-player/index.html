@@ -22,50 +22,57 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
-   <link rel="manifest" href="./assets/favicons/site.webmanifest">
+  <link rel="manifest" href="./assets/favicons/site.webmanifest">
   <title>Player</title>
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gudea&family=Gurajada&family=Roboto&display=swap" rel="stylesheet">
+
+
   <link href="./css/reset.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-  <link href="./dev/outline.css" rel="stylesheet">
+  <!-- <link href="./dev/outline.css" rel="stylesheet"> -->
 </head>
 
 <body>
-  <div class="page">
-      <div class="container">
-        <div class="player">
-            <div class="player__inner">
-              <div class="player__img-wrap">
-                <img src="player__img" alt="">
-              </div>
-              <div class="player__timeline-wrap">
-              </div>
-              <div class="player__song-info">
-                <div class="player__song-title"></div>
-                <div class="player__song-author"></div>
-              </div>
-              <div class="player__controls">
-                <button class="btn player__shuffle-btn">
-                  <img src="./assets/svg/shuffle.svg" alt="">
-                </button> 
-                <button class="btn player__prev-btn">
-                  <img src="./assets/svg/previous.svg" alt="">
-                </button> 
-                <button class="btn player__play-btn">
-                  <img src="./assets/svg/pause.svg" alt="">
-                  <img src="./assets/svg/play.svg" alt="">
-                </button> 
-                <button class="btn player__next-btn">
-                  <img src="./assets/svg/next.svg" alt="">
-                </button> 
-                <button class="btn player__repeat-btn">
-                  <img src="./assets/svg/repeate-one.svg" alt="">
-                </button> 
-              </div>
-            </div>
+    <div class="container">
+      <div class="player">
+        <div class="player__img-wrap">
+          <img src="player__img" alt="">
         </div>
+        <div class="player__timeline-wrap">
+          <span class="player__time player__time-current">1</span>
+          <div class="player__range-wrap">
+            <input class="player__range range" type = "range" min="0" max="100" value="0"/>
+          </div>
+          <span class="player__time player__time-left">12</span>
+        </div>
+        <div class="player__song-info">
+          <h4 class="player__title">Stunning Lights</h4>
+          <p class="player__author">The Be-liver</p>
+        </div>
+        <div class="player__controls">
+          <button class="player__btn player__shuffle-btn">
+            <img src="./assets/svg/shuffle.svg" alt="">
+          </button>
+          <button class="player__btn player__prev-btn">
+            <img src="./assets/svg/previous.svg" alt="">
+          </button>
+          <button class="player__btn player__play-btn ">
+            <img src="./assets/svg/play.svg" alt="">
+            <img src="./assets/svg/pause.svg" alt="">
+          </button>
+          <button class="player__btn player__next-btn">
+            <img src="./assets/svg/next.svg" alt="">
+          </button>
+          <button class="player__btn player__repeat-btn">
+            <img src="./assets/svg/repeate-one.svg" alt="">
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
-
+    <div class="player-background"></div>  
   <script type="module" src="./js/index.js"></script>
 </body>
 
