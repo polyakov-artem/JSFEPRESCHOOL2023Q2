@@ -32,21 +32,42 @@
 
   <link href="./css/reset.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-  <!-- <link href="./dev/outline.css" rel="stylesheet"> -->
+  <link href="./dev/outline.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
       <div class="player">
         <div class="player__img-wrap">
-          <img src="player__img" alt="">
+          <img class="player__img" src="" alt="">
+          <div class="loader player__loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p class="player__message"></p>
         </div>
         <div class="player__timeline-wrap">
-          <span class="player__time player__time-current">1</span>
+          <span class="player__time player__current-time">00:00</span>
           <div class="player__range-wrap">
-            <input class="player__range range" type = "range" min="0" max="100" value="0"/>
+            <input class="range player__timeline" type = "range" min="0" max="100" value="0"/>
           </div>
-          <span class="player__time player__time-left">12</span>
+          <span class="player__time player__duration">00:00</span>
+        </div>
+        <div class="player__audio">
+          
         </div>
         <div class="player__song-info">
           <h4 class="player__title">Stunning Lights</h4>
@@ -60,8 +81,8 @@
             <img src="./assets/svg/previous.svg" alt="">
           </button>
           <button class="player__btn player__play-btn ">
-            <img src="./assets/svg/play.svg" alt="">
-            <img src="./assets/svg/pause.svg" alt="">
+            <img class="player__stop-icon" src="./assets/svg/pause.svg" alt="">
+            <img class="player__play-icon" src="./assets/svg/play.svg" alt="">
           </button>
           <button class="player__btn player__next-btn">
             <img src="./assets/svg/next.svg" alt="">
@@ -70,9 +91,9 @@
             <img src="./assets/svg/repeate-one.svg" alt="">
           </button>
         </div>
+        <div class="player__background"></div>  
       </div>
     </div>
-    <div class="player-background"></div>  
   <script type="module" src="./js/index.js"></script>
 </body>
 
