@@ -32,7 +32,6 @@
 
   <link href="./css/reset.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
-  <link href="./dev/outline.css" rel="stylesheet">
 </head>
 
 <body>
@@ -59,37 +58,42 @@
           </div>
           <p class="player__message"></p>
         </div>
-        <div class="player__timeline-wrap">
-          <span class="player__time player__current-time">00:00</span>
-          <div class="player__range-wrap">
-            <input class="range player__timeline" type = "range" min="0" max="100" value="0"/>
+        <div class="player__timebar-wrap">
+          <span class="player__time player__current-time"></span>
+          <div class="range player__timebar ">
+            <input class="range__bar" type = "range" min="0" max="100" value="0"/>
           </div>
-          <span class="player__time player__duration">00:00</span>
+          <span class="player__time player__duration"></span>
         </div>
-        <div class="player__audio">
-          
-        </div>
+ 
         <div class="player__song-info">
-          <h4 class="player__title">Stunning Lights</h4>
-          <p class="player__author">The Be-liver</p>
+          <h4 class="player__title"></h4>
+          <p class="player__author"></p>
         </div>
         <div class="player__controls">
-          <button class="player__btn player__shuffle-btn">
+          <button class="player__btn player__shuffle-btn" title ="shuffle tracks">
             <img src="./assets/svg/shuffle.svg" alt="">
           </button>
-          <button class="player__btn player__prev-btn">
+          <button class="player__btn player__prev-btn" title="play previous">
             <img src="./assets/svg/previous.svg" alt="">
           </button>
-          <button class="player__btn player__play-btn ">
+          <button class="player__btn player__play-btn" title ="play/pause">
             <img class="player__stop-icon" src="./assets/svg/pause.svg" alt="">
             <img class="player__play-icon" src="./assets/svg/play.svg" alt="">
           </button>
-          <button class="player__btn player__next-btn">
+          <button class="player__btn player__next-btn" title ="play next">
             <img src="./assets/svg/next.svg" alt="">
           </button>
-          <button class="player__btn player__repeat-btn">
+          <button class="player__btn player__repeat-btn" title ="repeat one">
             <img src="./assets/svg/repeate-one.svg" alt="">
           </button>
+        </div>
+        <div class="player__footer">
+          <a href="https://github.com/polyakov-artem" class="player__link" target="_blank">Polyakov Artem</a>
+          <span class="player__creation-time">2023</span>
+          <a href="https://rs.school/js-stage0/" class="player__link player__rs-link" target="_blank">
+            <img src="./assets/svg/rs_school_js.svg" alt="">
+          </a>
         </div>
         <div class="player__background"></div>  
       </div>
