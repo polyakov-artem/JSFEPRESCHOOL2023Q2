@@ -1,37 +1,51 @@
+import {Range} from "./range.js"
+
 const audio = [
   {
-    author: "Red Hot Chili Peppers",
-    title: "Scar Tissue",
-    src: "./assets/audio/Red_Hot_Chili_Peppers_-_Scar_Tissue.mp3",
-    img: "./assets/img/1.jpg",
+    author: "Beyonce",
+    title: "Lemonade",
+    src: "./assets/audio/Beyonce_-_Lemonade.mp3",
+    img: "./assets/img/Beyonce_-_Lemonade.jpg",
   },
   {
-    author: "Король и шут",
-    title: "Любовь и боль",
-    src: "./assets/audio/КИШ_-_Любовь_и_боль.mp3",
-    img: "./assets/img/2.jpg",
+    author: "Dua Lipa",
+    title: "Dont start now",
+    src: "./assets/audio/Dua_Lipa_-_Dont-start-now.mp3",
+    img: "./assets/img/Dua_Lipa_-_Dont-start-now.jpeg",
   },
   {
-    author: "Король и шут",
-    title: "Анархист",
-    src: "./assets/audio/КИШ_-_Анархист.mp3",
-    img: "./assets/img/3.jpeg",
+    author: "Glass Animals",
+    title: "Heat Waves",
+    src: "./assets/audio/Glass_Animals_-_Heat_Waves.mp3",
+    img: "./assets/img/Glass_Animals_-_Heat_Waves.jpg",
+  },
+  {
+    author: "Gotye",
+    title: "Somebody that i used to know",
+    src: "./assets/audio/Gotye_-_Somebody_that_i_used_to_know.mp3",
+    img: "./assets/img/Gotye_-_Somebody_that_i_used_to_know.jpg",
+  },
+  {
+    author: "Harry Hudson",
+    title: "Whenimma",
+    src: "./assets/audio/Harry_Hudson_-_Whenimma.mp3",
+    img: "./assets/img/Harry_Hudson_-_Whenimma.jpg",
   },
 ];
 
 const defaultInfo = {
   author: "",
-  title: "",
+  title: " ",
   src: "",
   img: "",
-  duration: "--:--"
+  duration: "00:00"
 };
 
 
 export class Player {
   constructor(element) {
     this._domPlayer = element;
-    this._domTimeline = element.querySelector(".player__timeline");
+    this._domTimeBar = element.querySelector(".player__timebar .range__bar");
     this._domDuration = element.querySelector(".player__duration");
     this._domCurrentTime = element.querySelector(".player__current-time");
     this._domImg = element.querySelector(".player__img");
@@ -48,17 +62,37 @@ export class Player {
     this._playingAudio = null;
     this._shuffled = false;
     this._repeatOne = false;
-
     this._playing = false;
     this._paused = false;
 
+    this._timeUpdateListener = ((e) => {
+      const time = this._playingAudio.currentTime;
+      this._domTimeBar.value = Math.floor(time);
+      this._domCurrentTime.textContent = this._getFormatedTime(time);
+      this._rangeInstance.updateProgress();
+    }).bind(this);
+
+    this._adudioEndListener = ((e) => {
+      this._removeAudioEndListener();
+      if (this._repeatOne) {
+        this._tryToPlay(this._trackIndex);
+      } else {
+        this._nextBtnHandler();
+      }
+    }).bind(this);
+
+    this._rangeInstance = new Range(this._domTimeBar);
     this._bindEvents();
+    this._updateStaticView();
     this._loadTracks();
   }
 
   _bindEvents() {
     this._domPlayer.addEventListener("click", this._clickHandler.bind(this));
-    // this._domTimeline.addEventListener("change", this._rangeHandler.bind(this));
+    this._domTimeBar.addEventListener(
+      "input",
+      this._timebarClickHandler.bind(this)
+    );
   }
 
   _loadTracks() {
@@ -127,7 +161,7 @@ export class Player {
     }
   }
 
-  _repeatBtnHandler(){
+  _repeatBtnHandler() {
     if (this._repeatOne) {
       this._repeatOne = false;
       this._domRepeatBtn.classList.remove("player__btn_active");
@@ -135,17 +169,16 @@ export class Player {
       this._repeatOne = true;
       this._domRepeatBtn.classList.add("player__btn_active");
     }
-
   }
 
   _nextBtnHandler() {
-    this._stop();
+    this._stopHandler();
     this._setNextIndex(this._trackIndex + 1);
     this._tryToPlay();
   }
 
   _prevBtnHandler() {
-    this._stop();
+    this._stopHandler();
     this._setNextIndex(this._trackIndex - 1);
     this._tryToPlay();
   }
@@ -172,23 +205,67 @@ export class Player {
 
   _tryToPlay() {
     this._showLoader();
+    this._track.loaded.then(
+      this._playHandler.bind(this),
+      this._errorHandler.bind(this)
+    );
+  }
 
-    this._track.loaded.then(playHandler.bind(this), errorHandler.bind(this));
+  _playHandler(audio) {
+    this._playingAudio = audio;
+    this._hideLoader();
+    this._clearErrorMessage();
+    this._setTimeBarMax();
+    this._updateStaticView();
+    this._setTimeUpdateListener();
+    this._addAudioEndListener();
+    this._play();
+  }
 
-    function playHandler(audio) {
-      this._playingAudio = audio;
-      this._hideLoader();
-      this._clearErrorMessage();
-      this._updateView(this._track);
-      this._setTimelineMax();
-      this._play(audio);
-    }
+  _errorHandler(errorMessage) {
+    this._hideLoader();
+    this._updateStaticView();
+    this._showErrorMessage(errorMessage);
+  }
 
-    function errorHandler(errorMessage) {
-      this._hideLoader();
-      this._updateView(defaultInfo);
-      this._showErrorMessage(errorMessage);
-    }
+  _stopHandler() {
+    if (!this._playingAudio) return;
+    this._pause();
+    this._paused = false;
+    this._playingAudio.currentTime = 0.0;
+    this._domTimeBar.value = 0;
+    this._rangeInstance.updateProgress();
+
+    this._hideLoader();
+    this._clearErrorMessage();
+    this._updateStaticView();
+    this._removeTimeUpdateListener();
+    this._removeAudioEndListener();
+    this._playingAudio = null;
+  }
+
+  _setTimeUpdateListener() {
+    this._playingAudio.addEventListener("timeupdate", this._timeUpdateListener);
+  }
+
+  _removeTimeUpdateListener() {
+    this._playingAudio.removeEventListener(
+      "timeupdate",
+      this._timeUpdateListener
+    );
+  }
+
+  _addAudioEndListener() {
+    this._playingAudio.addEventListener("ended", this._adudioEndListener);
+  }
+
+  _removeAudioEndListener() {
+    this._playingAudio.removeEventListener("ended", this._adudioEndListener);
+  }
+
+  _timebarClickHandler(e) {
+    if (!this._playingAudio) return;
+    this._playingAudio.currentTime = this._domTimeBar.value;
   }
 
   _showLoader() {
@@ -208,16 +285,22 @@ export class Player {
     this._domPlayer.classList.remove("player_error");
   }
 
-  _updateView(props) {
-    const { img, title, author, duration } = props;
+  _updateStaticView() {
+    let info = defaultInfo;
+
+    if (this._playingAudio) {
+      info = this._track;
+    }
+
+    const { img, title, author, duration } = info;
     this._domImg.setAttribute("src", `${img}`);
-    this._domBackground.style = `background-image: url(${img})`;
+    this._domBackground.style = img? `background: url(${img}) no-repeat center / cover`: "";
     this._domTitle.textContent = title;
     this._domAuthor.textContent = author;
-    this._domDuration.textContent = this._getFormatedDuration(duration);
+    this._domDuration.textContent = this._getFormatedTime(duration) || duration;
+    this._domCurrentTime.textContent =
+    this._getFormatedTime(duration) || duration;
   }
-
-  _updateTime() {}
 
   _play() {
     this._playing = true;
@@ -233,14 +316,6 @@ export class Player {
     this._playingAudio.pause();
   }
 
-  _stop() {
-    if (!this._playingAudio) return;
-    this._pause();
-    this._paused = false;
-    this._playingAudio.currentTime = 0.0;
-    this._playingAudio = null;
-  }
-
   _getCorrectIndex(trackIndex) {
     let correctIndex = trackIndex;
 
@@ -252,15 +327,16 @@ export class Player {
     return correctIndex;
   }
 
-  _getFormatedDuration(seconds) {
+  _getFormatedTime(seconds) {
+    if (typeof seconds !== "number") return;
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
     const formatedSecs = secs < 10 ? `0${secs}` : `${secs}`;
     return `${mins}:${formatedSecs}`;
   }
 
-  _setTimelineMax() {
-    this._domTimeline.max = Math.floor(this._track.duration);
+  _setTimeBarMax() {
+    this._domTimeBar.max = Math.floor(this._playingAudio.duration);
   }
 
   _shuffleArray(array) {
