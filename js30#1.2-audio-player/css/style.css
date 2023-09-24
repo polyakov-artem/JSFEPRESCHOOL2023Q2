@@ -1,14 +1,12 @@
 :root {
     --black: #000000;
     --white: #ffffff;
-    --gray: #adadad;
+    --gray: #ccc;
+    --gray-light: rgb(190, 190, 190);
     --red: #ff0000;
     --red-dark: #dd0000;
-
-    --bg-color: rgb(190, 190, 190);
-
-    --btn-hover-color: rgba(255, 0, 0, .2);
-    --btn-active-color: rgba(255, 0, 0, .5);
+    --red-opacity-5: rgba(255, 0, 0, .5);
+    --bg-gradient: linear-gradient(135deg, #91EAE4, #86A8E7, #7F7FD5)
 }
 
 *,
@@ -31,10 +29,10 @@ html {
 body {
     position: relative;
     min-height: 100%;
-    min-width: 320px;
+    min-width: 600px;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    line-height: 32px;
+    line-height: 1.5;
     color: var(--black);
     font-style: normal;
     font-weight: normal;
@@ -42,58 +40,63 @@ body {
     overflow-x: hidden;
 }
 
-
 .range {
+    display: flex;
+}
+
+.range__bar {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     cursor: pointer;
-    border-radius: 3px;
+    outline: none;
+    border-radius: 15px;
     height: 6px;
     background: var(--gray);
 }
 
-.range::-webkit-slider-thumb {
+.range__bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    height: 20px;
-    width: 20px;
-    background-color: var(--black);
+    height: 15px;
+    width: 15px;
+    background-color: var(--red);
     border-radius: 50%;
-    border: 4px solid var(--red);
-    transition: .3s ease-in-out;
+    border: none;
+    transition: .2s ease-in-out;
 }
 
-.range::-moz-range-thumb {
-    height: 20px;
-    width: 20px;
-    background-color:var(--black);
+.range__bar::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background-color: var(--red);
     border-radius: 50%;
-    border: 4px solid var(--thumb-border-color);
-    transition: .3s ease-in-out;
+    border: none;
+    transition: .2s ease-in-out;
 }
 
-.range::-webkit-slider-thumb:hover {
-    box-shadow: 0 0 0 6px var(--btn-hover-color)
+.range__bar::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(255, 85, 0, .1)
 }
 
-.range::-moz-range-thumb:hover {
-    box-shadow: 0 0 0 6px var(--btn-hover-color)
+.range__bar:active::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(255, 85, 0, .2)
 }
 
-.range:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 10px var(--btn-active-color)
-}
-.range:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 10px var(--btn-active-color)
+.range__bar:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 13px rgba(255, 85, 0, .2)
 }
 
-.range:active::-moz-range-thumb {
-    box-shadow: 0 0 0 10px var(--btn-active-color)
+.range__bar::-moz-range-thumb:hover {
+    box-shadow: 0 0 0 10px rgba(255, 85, 0, .1)
 }
 
-.range:active::-webkit-slider-thumb {
-    box-shadow: 0 0 0 10px var(--btn-active-color)
+.range__bar:active::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(255, 85, 0, .2)
+}
+
+.range__bar:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 13px rgba(255, 85, 0, .2)
 }
 
 
@@ -115,9 +118,9 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--bg-color);
-    background: var(--bg-color) url("") no-repeat center / cover;
-    filter: blur(3px);
+    background-color: var(--gray-light);
+    background: var(--bg-gradient);
+    /* filter: blur(1px); */
 }
 
 .player{
@@ -130,7 +133,7 @@ body {
     gap: 20px;
     padding: 20px 20px;
     border-radius: 20px;
-    background: linear-gradient(150deg, rgb(255, 255, 255) 0%, rgb(226, 226, 226) 50%);
+    background: linear-gradient(150deg, rgba(255, 255, 255, 0.8) 0%, rgba(226, 226, 226, 0.8) 50%);
     box-shadow: 0 2px 5px 5px rgba(0, 0, 0, .2);
 }
 
@@ -156,11 +159,11 @@ body {
 
 
 .player__img-wrap {
-    flex: 1 1 0;
+    flex: 0 1 400px;
     border-radius: 10px;
     position: relative;
-    background: var(--bg-color);
     overflow: hidden;
+    border: 1px solid var(--gray-light);
 }
 
 .player__img {
@@ -175,9 +178,9 @@ body {
     display: none;
 }
 
-.player__timeline-wrap {
+.player__timebar-wrap {
     display: grid;
-    grid-template-columns: 70px 1fr 70px;
+    grid-template-columns: 60px 1fr 60px;
     align-items: center;
 }
 
@@ -185,39 +188,32 @@ body {
     font-size: 14px;
     line-height: 1;
     padding: 14px 5px 10px;
-    text-align: center;
 }
 
-.player__time-current {
-    text-align: left;
-}
-
-.player__time-left {
+.player__time:nth-of-type(2){
     text-align: right;
 }
 
-.player__song-info {
-
-}
 
 .player__title {
-    font-size: 32px;
-    line-height: 36px;
-    margin-bottom: 20px;
+    font-size: 30px;
 }
 
 .player__author {
-    font-size: 1.5
+    font-size: 20px;
+    text-overflow: ellipsis;
 }
 
 .player__controls {
+    margin-top: auto;
     display: flex;
     gap: 20px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .player__btn {
+    flex: none;
     cursor: pointer;
     background-color: transparent;
     border: none;
@@ -231,7 +227,7 @@ body {
 
 .player__btn:focus,
 .player__btn:active {
-    box-shadow: 0 0 0 10px var(--btn-active-color)
+    box-shadow: 0 0 0 10px var(--red-opacity-5)
 }
 
 
@@ -292,6 +288,29 @@ body {
     align-items: center;
 }
 
+.player__link{
+    color: var(--black);
+    text-decoration: none;
+}
+
+.player__link:hover {
+    text-decoration: underline;
+}
+
+.player__footer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.player__creation-time{
+ text-align: center;
+}
+
+.player__rs-link {
+    text-align: right;
+}
+
 .loader {
     position: absolute;
     top: 0px;
@@ -305,7 +324,7 @@ body {
 
 .loader span {
     display: block;
-    background: #ccc;
+    background: var(--gray-light);
     width: 7px;
     height: 10px;
     border-radius: 14px;
@@ -380,19 +399,19 @@ body {
 
 @keyframes load {
     0% {
-        background: #000000;
+        background: var(--black);
         margin-top: 25%;
         height: 10%;
     }
 
     50% {
-        background: #ff0000;
+        background: var(--red);
         height: 100%;
         margin-top: 0;
     }
 
     100% {
-        background: #ffffff;
+        background: var(--white);
         height: 10%;
         margin-top: 25%;
     }
