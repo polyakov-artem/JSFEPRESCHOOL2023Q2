@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="msapplication-TileColor" content="#FFFFFF">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="description" content="Index page">
+  <meta name="keywords" content="index, page">
+  <meta name="author" content>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content>
+  <meta name="twitter:image" content>
+  <meta name="twitter:description" content>
+  <meta property="og:url" content>
+  <meta property="og:title" content>
+  <meta property="og:description" content>
+  <meta property="og:image" content>
+  <meta property="og:type" content="website">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicons/favicon-16x16.png">
+  <link rel="manifest" href="./assets/favicons/site.webmanifest">
+  <title>Player</title>
+  
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gudea&family=Gurajada&family=Roboto&display=swap" rel="stylesheet">
+
+
+  <link href="./css/reset.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+      <div class="player">
+        <div class="player__img-wrap">
+          <img class="player__img" src="" alt="">
+          <div class="loader player__loader">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <p class="player__message"></p>
+        </div>
+        <div class="player__timebar-wrap">
+          <span class="player__time player__current-time"></span>
+          <div class="range player__timebar ">
+            <input class="range__bar" type = "range" min="0" max="100" value="0"/>
+          </div>
+          <span class="player__time player__duration"></span>
+        </div>
+ 
+        <div class="player__song-info">
+          <h4 class="player__title"></h4>
+          <p class="player__author"></p>
+        </div>
+        <div class="player__controls">
+          <button class="player__btn player__shuffle-btn" title ="shuffle tracks">
+            <img src="./assets/svg/shuffle.svg" alt="">
+          </button>
+          <button class="player__btn player__prev-btn" title="play previous">
+            <img src="./assets/svg/previous.svg" alt="">
+          </button>
+          <button class="player__btn player__play-btn" title ="play/pause">
+            <img class="player__stop-icon" src="./assets/svg/pause.svg" alt="">
+            <img class="player__play-icon" src="./assets/svg/play.svg" alt="">
+          </button>
+          <button class="player__btn player__next-btn" title ="play next">
+            <img src="./assets/svg/next.svg" alt="">
+          </button>
+          <button class="player__btn player__repeat-btn" title ="repeat one">
+            <img src="./assets/svg/repeate-one.svg" alt="">
+          </button>
+        </div>
+        <div class="player__footer">
+          <a href="https://github.com/polyakov-artem" class="player__link" target="_blank">Polyakov Artem</a>
+          <span class="player__creation-time">2023</span>
+          <a href="https://rs.school/js-stage0/" class="player__link player__rs-link" target="_blank">
+            <img src="./assets/svg/rs_school_js.svg" alt="">
+          </a>
+        </div>
+        <div class="player__background"></div>  
+      </div>
+    </div>
+  <script type="module" src="./js/index.js"></script>
+</body>
+
+</html>
