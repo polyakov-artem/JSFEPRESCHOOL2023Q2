@@ -45,6 +45,7 @@ export class Gallery {
       return await response.json();
     } else {
       alert("Ошибка HTTP: " + response.status);
+      console.log("Ошибка HTTP: " + response.status);
     }
   }
 
