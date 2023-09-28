@@ -8,24 +8,34 @@ export class Gallery {
     this._domSearchInput = this._domSearchForm.querySelector(".input__control");
     this._domImgContainer = element.querySelector(".gallery__grid");
 
+    this._domSearchInput.focus();
     this._bindEvents();
+    
   }
 
   _bindEvents() {
-    this._domSearchForm.addEventListener("submit",this._submitHandler.bind(this));
+    this._domSearchForm.addEventListener(
+      "submit",
+      this._submitHandler.bind(this)
+    );
   }
 
   _submitHandler(e) {
     e.preventDefault();
-
     let query = this._domSearchInput.value.trim();
     if (query.length == 0) return;
+    this.searchImages(query);
+  }
 
+  async searchImages(query) {
     const url = `${REQUEST_URL}?query=${query}&client_id=${CLIENT_ID}&per_page=30`;
     const imgContainerNotEmpty = this._domImgContainer.children.length != 0;
     if (imgContainerNotEmpty) this._domImgContainer.replaceChildren();
-    
-    this._createImages(url);
+
+    const json = await this._getData(url);
+    if (!json) return;
+
+    this._createImages(json);
   }
 
   async _getData(url) {
@@ -38,10 +48,7 @@ export class Gallery {
     }
   }
 
-  async _createImages(url) {
-    const json = await this._getData(url);
-    if (!json) return;
-
+  async _createImages(json) {
     const tempContainer = new DocumentFragment();
 
     json.results.forEach((imageInfo) => {
